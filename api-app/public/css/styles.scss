@@ -1,0 +1,11 @@
+$main-color: #ffeefe;
+$header-color: #ffd4fc;
+
+header {
+    background-color: $header-color;
+    padding: 10px;
+}
+
+body {
+    background-color: $main-color;
+}
