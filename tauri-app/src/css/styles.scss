@@ -1,0 +1,250 @@
+$font: 'Open Sans', sans-serif;
+$header-color: #6d4c41;
+$footer-color: #4b3027;
+$button-color: #c79a00;
+$main-color: #d3c0b9;
+
+* {
+    font-family: $font;
+}
+
+body {
+    margin: 0 !important;
+    padding: 0;
+
+
+    // Path: _header.scss
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: $header-color;
+        color: white;
+        padding: 0.2rem 0.4rem;
+        a {
+            text-decoration: none;
+            color: white;
+            h1 {
+                margin: 0;
+            }
+        }
+
+        .login {
+
+            a {
+                text-decoration: none;
+                margin-left: 5px;
+                margin-right: 5px;
+                color: white !important;
+                background-color: $button-color;
+                padding: 10px;
+                margin-bottom: 2px;
+                border-radius: 8px;
+
+                &:hover {
+                    background-color: #666;
+                }
+
+            }
+
+        }
+    }
+
+    main {
+        display: flex;
+        justify-content: center;
+        background-color: $main-color;
+        height: 800px;
+        padding: 1rem;
+
+        h1,
+        h2 {
+            font-size: 32px;
+        }
+
+        button,
+        input,
+        select {
+            border: 2px solid white;
+
+            &:hover {
+                transition: all 0.5s ease;
+                transform: scale(1.1);
+            }
+
+        }
+    }
+
+    p {
+        font-size: 1em;
+        color: #333;
+    }
+
+
+    .container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap !important;
+        max-width: 100%;
+        max-height: 100%;
+
+        .form-card {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+
+            .form-element {
+                width: 70%;
+
+
+                form {
+                    padding: 10px;
+                    font-family: $font;
+                    background-color: $footer-color;
+                    flex-grow: 4;
+
+                    .form-text {
+                        width: 50px;
+                        height: 50px;
+                        text-align: right;
+
+                        input[type=text] {
+                            width: 90%;
+                            height: 100%;
+                            padding-top: 10px;
+                            padding-bottom: 10px;
+                            margin: 4px;
+                            text-align: center;
+                            font-family: $font;
+                            background-color: white;
+                        }
+
+                        label {
+                            width: 10%;
+                            color: white;
+                        }
+                    }
+
+                    .form-submit {
+                        text-align: center;
+
+                        button{
+                            width: 50%;
+                            background-color: $button-color;
+                            color: white;
+                            padding: 14px 20px;
+                            margin: 8px 0;
+                            border: none;
+                            border-radius: 4px;
+                            cursor: pointer;
+                            &:hover {
+                                background-color: #666;
+                              }
+                        }
+                    }
+                }
+            }
+        }
+
+        .table-card {
+            margin: 10px;
+            width: 50%;
+            text-align: center;
+
+            table {
+                width: 100%;
+                height: 100%;
+                margin: 10px;
+                padding: 10px;
+                font-size: 1em;
+                font-family: $font;
+                background-color: $main-color;
+                border: 1px solid #333;
+                border-radius: 5px;
+                color: #333;
+            }
+        }
+    }
+}
+
+#logout {
+    text-decoration: none;
+    margin-left: 5px;
+    margin-right: 5px;
+    color: white !important;
+    background-color: $button-color;
+    padding: 10px;
+    margin-bottom: 2px;
+    border-radius: 8px;
+
+    &:hover {
+        background-color: #666;
+    }
+
+}
+.loginh1{
+    text-align: center;
+}
+.loginForm {
+    margin-left: 5vw;
+    margin-right: 5vw;
+    height: auto;
+    margin-bottom: 24vw;
+    text-align: center;
+    input {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+      
+      button {
+        width: 100%;
+        background-color: $button-color;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        &:hover {
+            background-color: #666;
+          }
+      }
+      
+     
+      
+      div {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
+      }
+
+}
+
+
+// Path: _footer.scss
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $footer-color;
+    color: white;
+    padding: 1rem;
+
+    a {
+        color: white;
+        text-decoration: none;
+
+        img {
+            width: 5vw;
+            height: 5vw;
+            margin-left: 0.5rem;
+        }
+    }
+}
