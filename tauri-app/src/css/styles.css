@@ -1,210 +1,108 @@
 * {
-  font-family: "Open Sans", sans-serif;
-}
-
-body {
-  margin: 0 !important;
-  padding: 0;
-}
-body header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #6d4c41;
-  color: white;
-  padding: 0.2rem 0.4rem;
-}
-body header a {
-  text-decoration: none;
-  color: white;
-}
-body header a h1 {
   margin: 0;
-}
-body header .login a {
-  text-decoration: none;
-  margin-left: 5px;
-  margin-right: 5px;
-  color: white !important;
-  background-color: #c79a00;
-  padding: 10px;
-  margin-bottom: 2px;
-  border-radius: 8px;
-}
-body header .login a:hover {
-  background-color: #666;
-}
-body main {
-  display: flex;
-  justify-content: center;
-  background-color: #d3c0b9;
-  height: 800px;
-  padding: 1rem;
-}
-body main h1,
-body main h2 {
-  font-size: 32px;
-}
-body main button,
-body main input,
-body main select {
-  border: 2px solid white;
-}
-body main button:hover,
-body main input:hover,
-body main select:hover {
-  transition: all 0.5s ease;
-  transform: scale(1.1);
-}
-body p {
-  font-size: 1em;
-  color: #333;
-}
-body .container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap !important;
-  max-width: 100%;
-  max-height: 100%;
-}
-body .container .form-card {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-body .container .form-card .form-element {
-  width: 70%;
-}
-body .container .form-card .form-element form {
-  padding: 10px;
+  padding: 0;
+  box-sizing: border-box;
   font-family: "Open Sans", sans-serif;
-  background-color: #4b3027;
-  flex-grow: 4;
-}
-body .container .form-card .form-element form .form-text {
-  width: 50px;
-  height: 50px;
-  text-align: right;
-}
-body .container .form-card .form-element form .form-text input[type=text] {
-  width: 90%;
-  height: 100%;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  margin: 4px;
-  text-align: center;
-  font-family: "Open Sans", sans-serif;
-  background-color: white;
-}
-body .container .form-card .form-element form .form-text label {
-  width: 10%;
-  color: white;
-}
-body .container .form-card .form-element form .form-submit {
-  text-align: center;
-}
-body .container .form-card .form-element form .form-submit button {
-  width: 50%;
-  background-color: #c79a00;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-body .container .form-card .form-element form .form-submit button:hover {
-  background-color: #666;
-}
-body .container .table-card {
-  margin: 10px;
-  width: 50%;
-  text-align: center;
-}
-body .container .table-card table {
-  width: 100%;
-  height: 100%;
-  margin: 10px;
-  padding: 10px;
-  font-size: 1em;
-  font-family: "Open Sans", sans-serif;
-  background-color: #d3c0b9;
-  border: 1px solid #333;
-  border-radius: 5px;
-  color: #333;
 }
 
-#logout {
-  text-decoration: none;
-  margin-left: 5px;
-  margin-right: 5px;
-  color: white !important;
-  background-color: #c79a00;
+header {
+  background-color: #ffb8f0;
+  color: #fff;
   padding: 10px;
-  margin-bottom: 2px;
-  border-radius: 8px;
+  text-align: center;
 }
-#logout:hover {
-  background-color: #666;
+header h1 {
+  font-size: 30px;
 }
 
-.loginh1 {
+footer {
+  background-color: #ffccf4;
+  color: #fff;
+  padding: 10px;
   text-align: center;
+}
+footer p {
+  font-size: 20px;
 }
 
 .loginForm {
-  margin-left: 5vw;
-  margin-right: 5vw;
-  height: auto;
-  margin-bottom: 24vw;
+  background-color: #ffe8fa;
+  color: #fff;
+  padding: 10px;
   text-align: center;
+  margin: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+}
+.loginForm h2 {
+  font-size: 20px;
 }
 .loginForm input {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 0;
+  background-color: #ffb8f0;
+  color: #fff;
+  font-size: 20px;
 }
 .loginForm button {
-  width: 100%;
-  background-color: #c79a00;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-.loginForm button:hover {
-  background-color: #666;
-}
-.loginForm div {
-  border-radius: 5px;
-  background-color: #f2f2f2;
-  padding: 20px;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 0;
+  background-color: #ffb8f0;
+  color: #fff;
+  font-size: 20px;
 }
 
-.footer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #4b3027;
-  color: white;
-  padding: 1rem;
+.home form {
+  background-color: #ffe8fa;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  margin: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 }
-.footer a {
-  color: white;
-  text-decoration: none;
+.home form h2 {
+  font-size: 20px;
 }
-.footer a img {
-  width: 5vw;
-  height: 5vw;
-  margin-left: 0.5rem;
+.home form input {
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 0;
+  background-color: #ffb8f0;
+  color: #fff;
+  font-size: 20px;
+}
+.home form button {
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 0;
+  background-color: #ffb8f0;
+  color: #fff;
+  font-size: 20px;
+}
+.home form select {
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 0;
+  background-color: #ffb8f0;
+  color: #fff;
+  font-size: 20px;
+}
+.home form textarea {
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 0;
+  background-color: #ffb8f0;
+  color: #fff;
+  font-size: 20px;
 }
 
 /*# sourceMappingURL=styles.css.map */

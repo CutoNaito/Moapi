@@ -23,25 +23,38 @@ export function Home() {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (body !== "") {
+        if (method == "POST" || method == "PUT") {
             try {
                 setBodyParsed(JSON.parse(body));
+                const response = await fetch(url, {
+                    method: method,
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(bodyParsed)
+                })
+
+                if (!response.ok) {
+                    setResponse("Invalid URL");
+                } else {
+                    const data = await response.json();
+                    setResponse(JSON.stringify(data));
+                }
             } catch (error) {
                 setResponse("Invalid JSON");
             }
+        } else {
+            const response = await fetch(url, {
+                method: method
+            })
+
+            if (!response.ok) {
+                setResponse("Invalid URL");
+            } else {
+                const data = await response.json();
+                setResponse(JSON.stringify(data));
+            }
         }
-
-        const response = await fetch(url, {
-            method: method,
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(bodyParsed)
-        })
-
-        const data = await response.json();
-
-        setResponse(JSON.stringify(data));
     }
 
     return (
