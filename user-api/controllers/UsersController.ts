@@ -3,6 +3,8 @@ import { Request, Response } from "express";
 import { uuid } from "uuidv4";
 import bcrypt from "bcrypt";
 
+const auth_token = process.env.AUTH;
+
 export async function getAll(req: Request, res: Response) {
     try {
         const [result] = await Users.findAll();
@@ -44,33 +46,45 @@ export async function create(req: Request, res: Response) {
     const hashedPassword: string = await bcrypt.hash(req.body.password, 10);
     const User = new Users(UUID, req.body.username, req.body.email, hashedPassword);
 
-    try {
-        const [result] = await User.save();
-        res.status(201).json(result);
-    } catch (err) {
-        res.status(500).json(err);
+    if (req.headers.authorization !== auth_token) {
+        res.status(401).json({message: "Unauthorized"});
+    } else {
+        try {
+            const [result] = await User.save();
+            res.status(201).json(result);
+        } catch (err) {
+            res.status(500).json(err);
+        }
     }
 }
 
 export async function update(req: Request, res: Response) {
     const User = new Users(req.params.id, req.body.username, req.body.email, req.body.password);
 
-    try {
-        const [result] = await User.update();
-        res.status(200).json(result);
-    } catch (err) {
-        res.status(500).json(err);
+    if (req.headers.authorization !== auth_token) {
+        res.status(401).json({message: "Unauthorized"});
+    } else {
+        try {
+            const [result] = await User.update();
+            res.status(200).json(result);
+        } catch (err) {
+            res.status(500).json(err);
+        }
     }
 }
 
 export async function remove(req: Request, res: Response) {
     const User = new Users(req.params.id);
 
-    try {
-        const [result] = await User.delete();
-        res.status(200).json(result);
-    } catch (err) {
-        res.status(500).json(err);
+    if (req.headers.authorization !== auth_token) {
+        res.status(401).json({message: "Unauthorized"});
+    } else {
+        try {
+            const [result] = await User.delete();
+            res.status(200).json(result);
+        } catch (err) {
+            res.status(500).json(err);
+        }
     }
 }
 
