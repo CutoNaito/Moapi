@@ -2,15 +2,22 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
+import JsonFormatter from "react-json-formatter";
 
 export function Home() {
     const [url, setUrl] = useState("");
     const [method, setMethod] = useState("");
     const [body, setBody] = useState("");
     const [bodyParsed, setBodyParsed] = useState({});
-    const [response, setResponse] = useState("");
+    const [response, setResponse] = useState({});
 
     const history = useNavigate();
+
+    const jsonStyle = {
+        propertyStyle: { color: '#61005c' },
+        stringStyle: { color: '#000' },
+        numberStyle: { color: '#9c6e99' }
+    }
 
     useEffect(() => {
         if (!document.cookie.includes("token")) {
@@ -35,13 +42,13 @@ export function Home() {
                 })
 
                 if (!response.ok) {
-                    setResponse("Invalid URL");
+                    setResponse({"error": response.statusText});
                 } else {
                     const data = await response.json();
-                    setResponse(JSON.stringify(data));
+                    setResponse(data);
                 }
             } catch (error) {
-                setResponse("Invalid JSON");
+                setResponse({"error": error});
             }
         } else {
             const response = await fetch(url, {
@@ -49,10 +56,10 @@ export function Home() {
             })
 
             if (!response.ok) {
-                setResponse("Invalid URL");
+                setResponse({"error": response.statusText});
             } else {
                 const data = await response.json();
-                setResponse(JSON.stringify(data));
+                setResponse(data);
             }
         }
     }
@@ -61,21 +68,27 @@ export function Home() {
         <div className="home">
             <Header />
             <form onSubmit={handleSubmit}>
-                <input type="text" placeholder="URL" onChange={(e) => setUrl(e.target.value)}/>
-                <select defaultValue="Method" onChange={
-                    (e) => {
-                        setMethod(e.target.value);
-                    }
-                }>
-                    <option value="GET">GET</option>
-                    <option value="POST">POST</option>
-                    <option value="PUT">PUT</option>
-                    <option value="DELETE">DELETE</option>
-                </select>
-                <textarea placeholder="Body" onChange={(e) => setBody(e.target.value)}></textarea>
+                <div className="top-row">
+                    <input type="text" placeholder="URL" onChange={(e) => setUrl(e.target.value)}/>
+                    <select defaultValue="Method" onChange={
+                        (e) => {
+                            setMethod(e.target.value);
+                        }
+                    }>
+                        <option value="GET">GET</option>
+                        <option value="POST">POST</option>
+                        <option value="PUT">PUT</option>
+                        <option value="DELETE">DELETE</option>
+                    </select>
+                </div>
+                <textarea placeholder="Body" rows={15} cols={175} onChange={(e) => setBody(e.target.value)}></textarea>
                 <button type="submit">Send</button>
-                <p>{response}</p>
             </form>
+            <div className="response">
+                <div className="formatter">
+                    {response && <JsonFormatter json={JSON.stringify(response)} tabWith={4} jsonStyle={jsonStyle} />}
+                </div>
+            </div>
             <Footer />
         </div>
     );
