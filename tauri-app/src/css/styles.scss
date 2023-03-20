@@ -14,7 +14,7 @@ header {
     background-color: $primary-color;
     color: #000;
     padding: 10px;
-    text-align: center;
+    text-align: left;
 
     h1 {
         font-size: 30px;
@@ -27,8 +27,15 @@ footer {
     padding: 10px;
     text-align: center;
 
-    p {
-        font-size: 20px;
+    a {
+        color: white;
+        text-decoration: none;
+
+        img {
+            width: 3vw;
+            height: 3vw;
+            margin-left: 0.5rem;
+        }
     }
 }
 
@@ -104,7 +111,7 @@ footer {
     
                 &:hover {
                     background-color: #e99ad8;
-                    color: white;
+                    color: #fff;
                     cursor: pointer;
                 }
             }

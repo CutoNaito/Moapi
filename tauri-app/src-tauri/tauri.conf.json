@@ -7,8 +7,8 @@
     "withGlobalTauri": false
   },
   "package": {
-    "productName": "api-app-ale-js",
-    "version": "0.0.0"
+    "productName": "moapi",
+    "version": "1.0.0"
   },
   "tauri": {
     "allowlist": {
@@ -27,7 +27,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "moapi.cutonaito.eu",
       "targets": "all"
     },
     "security": {
@@ -41,8 +41,8 @@
         "fullscreen": false,
         "resizable": true,
         "title": "api-app",
-        "width": 800,
-        "height": 600
+        "width": 1920,
+        "height": 1080
       }
     ]
   }
