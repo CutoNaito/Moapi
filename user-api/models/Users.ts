@@ -5,12 +5,14 @@ export class Users {
     username?: string;
     password?: string;
     email?: string;
+    token?: string;
 
-    constructor(ID?: string, username?: string, email?: string, password?: string) {
+    constructor(ID?: string, username?: string, email?: string, password?: string, token?: string) {
         if (ID) this.ID = ID;
         if (username) this.username = username;
         if (email) this.email = email;
         if (password) this.password = password;
+        if (token) this.token = token;
     }
 
     async save() {
@@ -20,7 +22,7 @@ export class Users {
                 database.query("ROLLBACK");
             });
 
-            const [result] = await database.query("INSERT INTO users (ID, username, password, email) VALUES (?, ?, ?, ?)", [this.ID, this.username, this.password, this.email]).then(() => {
+            const [result] = await database.query("INSERT INTO users (ID, username, password, email, token) VALUES (?, ?, ?, ?, ?)", [this.ID, this.username, this.password, this.email, this.token]).then(() => {
                 database.query("COMMIT");
             }).catch((err: any) => {
                 console.log(err);
@@ -106,6 +108,16 @@ export class Users {
     static async findByEmail(email: string) {
         try {
             const [result] = await database.query("SELECT * FROM users WHERE email = ?", [email]);
+
+            return result;
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    static async findByToken(token: string) {
+        try {
+            const [result] = await database.query("SELECT * FROM users WHERE token = ?", [token]);
 
             return result;
         } catch (err) {

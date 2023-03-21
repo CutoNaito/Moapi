@@ -1,5 +1,6 @@
 import express from 'express';
 import UsersRouter from './routes/UsersRoutes';
+import StoredURIsRouter from './routes/StoredURIsRoutes';
 import 'dotenv/config';
 import cors from 'cors';
 
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/users', UsersRouter);
+app.use('/stored_uris', StoredURIsRouter);
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);

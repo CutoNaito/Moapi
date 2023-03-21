@@ -1,13 +1,12 @@
-import { Users } from "../models/Users";
+import { StoredURIs } from "../models/StoredURIs";
 import { Request, Response } from "express";
 import { uuid } from "uuidv4";
-import bcrypt from "bcrypt";
 
 const auth_token = process.env.AUTH;
 
 export async function getAll(req: Request, res: Response) {
     try {
-        const [result] = await Users.findAll();
+        const [result] = await StoredURIs.findAll();
         res.status(200).json(result);
     } catch (err) {
         res.status(500).json(err);
@@ -16,34 +15,25 @@ export async function getAll(req: Request, res: Response) {
 
 export async function getByID(req: Request, res: Response) {
     try {
-        const [result] = await Users.findByID(req.params.id);
+        const [result] = await StoredURIs.findByID(req.params.id);
         res.status(200).json(result);
     } catch (err) {
         res.status(500).json(err);
     }
 };
 
-export async function getByUsername(req: Request, res: Response) {
+export async function getByID_users(req: Request, res: Response) {
     try {
-        const [result] = await Users.findByUsername(req.params.username);
+        const [result] = await StoredURIs.findByID_users(req.params.user_id);
         res.status(200).json(result);
     } catch (err) {
         res.status(500).json(err);
     }
 };
 
-export async function getByEmail(req: Request, res: Response) {
+export async function getByURI(req: Request, res: Response) {
     try {
-        const [result] = await Users.findByEmail(req.params.email);
-        res.status(200).json(result);
-    } catch (err) {
-        res.status(500).json(err);
-    }
-};
-
-export async function getByToken(req: Request, res: Response) {
-    try {
-        const [result] = await Users.findByToken(req.params.token);
+        const [result] = await StoredURIs.findByURI(req.params.uri);
         res.status(200).json(result);
     } catch (err) {
         res.status(500).json(err);
@@ -52,58 +42,46 @@ export async function getByToken(req: Request, res: Response) {
 
 export async function create(req: Request, res: Response) {
     const UUID: string = uuid();
-    const hashedPassword: string = await bcrypt.hash(req.body.password, 10);
-    const User = new Users(UUID, req.body.username, req.body.email, hashedPassword, req.body.token);
+    const StoredURI = new StoredURIs(UUID, req.body.user_id, req.body.uri);
 
     if (req.headers.authorization !== auth_token) {
         res.status(401).json({message: "Unauthorized"});
     } else {
         try {
-            const [result] = await User.save();
+            const [result] = await StoredURI.save();
             res.status(201).json(result);
         } catch (err) {
             res.status(500).json(err);
         }
     }
-}
+};
 
 export async function update(req: Request, res: Response) {
-    const User = new Users(req.params.id, req.body.username, req.body.email, req.body.password);
+    const StoredURI = new StoredURIs(req.params.id, req.body.user_id, req.body.uri);
 
     if (req.headers.authorization !== auth_token) {
         res.status(401).json({message: "Unauthorized"});
     } else {
         try {
-            const [result] = await User.update();
+            const [result] = await StoredURI.update();
             res.status(200).json(result);
         } catch (err) {
             res.status(500).json(err);
         }
     }
-}
+};
 
 export async function remove(req: Request, res: Response) {
-    const User = new Users(req.params.id);
+    const StoredURI = new StoredURIs(req.params.id, req.body.user_id, req.body.uri);
 
     if (req.headers.authorization !== auth_token) {
         res.status(401).json({message: "Unauthorized"});
     } else {
         try {
-            const [result] = await User.delete();
+            const [result] = await StoredURI.delete();
             res.status(200).json(result);
         } catch (err) {
             res.status(500).json(err);
         }
     }
-}
-
-export async function login(req: Request, res: Response) {
-    try {
-        const result = await Users.findByUsername(req.body.username);
-        const match = await bcrypt.compare(req.body.password, result[0].password);
-        res.status(201).json({message: "Login successful", result: result, match: match});
-    } catch (err) {
-        console.log(err);
-        res.status(500).json(err);
-    }
-}
+};
