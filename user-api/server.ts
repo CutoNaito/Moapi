@@ -1,6 +1,7 @@
 import express from 'express';
 import UsersRouter from './routes/UsersRoutes';
 import StoredURIsRouter from './routes/StoredURIsRoutes';
+import SMTPRouter from './routes/SMTP/SMTPRoutes';
 import 'dotenv/config';
 import cors from 'cors';
 
@@ -12,6 +13,7 @@ app.use(cors());
 
 app.use('/users', UsersRouter);
 app.use('/stored_uris', StoredURIsRouter);
+app.use('/smtp', SMTPRouter);
 
 if (Number.isInteger(parseInt(port!)) && parseInt(port!) > 0) {
     app.listen(port, () => {
