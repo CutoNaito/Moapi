@@ -2,6 +2,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
+import 'dotenv/config';
+
+if (!process.env.SERVER_URI) {
+    throw new Error("SERVER_URI not set");
+}
+
+const SERVER_URI = process.env.SERVER_URI;
 
 export function Login() {
     const [username, setUsername] = useState("");
@@ -10,7 +17,7 @@ export function Login() {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const response = await fetch("http://37.120.169.246/users/login/", {
+        const response = await fetch(SERVER_URI + "/users/login/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
