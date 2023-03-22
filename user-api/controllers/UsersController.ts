@@ -3,6 +3,11 @@ import { Request, Response } from "express";
 import { uuid } from "uuidv4";
 import bcrypt from "bcrypt";
 
+if (!process.env.AUTH) {
+    console.log('Missing environment variables');
+    process.exit(1);
+};
+
 const auth_token = process.env.AUTH;
 
 export async function getAll(req: Request, res: Response) {

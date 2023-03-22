@@ -2,7 +2,11 @@ import { useState ,useEffect } from "react";
 
 export function HistoryPanel() {
     const [user_id, setUser_id] = useState("");
-    const [history, setHistory] = useState([]);
+    const [history, setHistory] = useState([{
+        ID: "",
+        URI: "",
+        user_id: ""
+    }]);
 
     useEffect(() => {
         async function fetchUsername() {
@@ -24,6 +28,13 @@ export function HistoryPanel() {
     return (
         <div className="historyPanel">
             <h1>History</h1>
+            <ul>
+                {history.map((item) => (
+                    <li key={item.ID}>
+                        <p>{item.URI}</p>
+                    </li>
+                ))}
+            </ul>
         </div>
     );
 }
