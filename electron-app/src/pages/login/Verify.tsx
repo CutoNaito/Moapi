@@ -45,7 +45,7 @@ export function Verify() {
 
         const data = await response.json();
 
-        if (data.match) {
+        if (data.match && !data.error) {
             history("/");
         } else {
             alert("Verification code does not match");

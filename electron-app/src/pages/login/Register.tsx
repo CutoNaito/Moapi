@@ -8,6 +8,17 @@ if (!process.env.SERVER_URI || !process.env.AUTH_TOKEN) {
 
 const SERVER_URI = process.env.SERVER_URI;
 
+function GenerateCode(lenght: number) {
+    let code = "";
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (let i = 0; i < lenght; i++) {
+        code += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+
+    return code;
+}
+
 export function Register() {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
@@ -31,13 +42,14 @@ export function Register() {
             body: JSON.stringify({
                 username: username,
                 email: email,
-                password: password
+                password: password,
+                verification_code: GenerateCode(6)
             })
         });
 
         const data = await response.json();
 
-        if (data.match && !data.error) {
+        if (!data.error) {
             document.cookie = `token=${data.token}`;
             history("/verify");
         } else {
