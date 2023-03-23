@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import 'dotenv/config';
 
-if (!process.env.SERVER_URI) {
-    throw new Error("SERVER_URI not set");
+if (!process.env.SERVER_URI || !process.env.AUTH_TOKEN) {
+    throw new Error("Environment variables not set");
 }
 
 const SERVER_URI = process.env.SERVER_URI;
@@ -22,10 +22,11 @@ export function Register() {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const response = await fetch(SERVER_URI + "/users/", {
+        const response = await fetch(SERVER_URI + "/users", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": process.env.AUTH_TOKEN!
             },
             body: JSON.stringify({
                 username: username,
@@ -38,7 +39,7 @@ export function Register() {
 
         if (data.match && !data.error) {
             document.cookie = `token=${data.token}`;
-            history("/");
+            history("/verify");
         } else {
             console.log("Error");
         }

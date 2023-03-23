@@ -18,6 +18,7 @@ export function Home() {
     const [body, setBody] = useState("");
     const [bodyParsed, setBodyParsed] = useState({});
     const [response, setResponse] = useState({});
+    const [isVerified, setIsVerified] = useState(false);
 
     async function fetchUsername() {
         const token = document.cookie.split("=")[1];
@@ -25,6 +26,7 @@ export function Home() {
         const data = await response.json();
         
         setUser_id(data[0].ID);
+        setIsVerified(data[0].verified);
     }
 
     const history = useNavigate();
@@ -40,6 +42,10 @@ export function Home() {
             history("/login");
         } else {
             fetchUsername();
+
+            if (!isVerified) {
+                history("/verify");
+            }
         }
     }, []);
 

@@ -6,13 +6,17 @@ export class Users {
     password?: string;
     email?: string;
     token?: string;
+    verified?: boolean;
+    verification_code?: string;
 
-    constructor(ID?: string, username?: string, email?: string, password?: string, token?: string) {
+    constructor(ID?: string, username?: string, email?: string, password?: string, token?: string, verified?: boolean, verification_code?: string) {
         if (ID) this.ID = ID;
         if (username) this.username = username;
         if (email) this.email = email;
         if (password) this.password = password;
         if (token) this.token = token;
+        if (verified) this.verified = verified;
+        if (verification_code) this.verification_code = verification_code;
     }
 
     async save() {
@@ -22,7 +26,7 @@ export class Users {
                 database.query("ROLLBACK");
             });
 
-            const [result] = await database.query("INSERT INTO users (ID, username, password, email, token) VALUES (?, ?, ?, ?, ?)", [this.ID, this.username, this.password, this.email, this.token]).then(() => {
+            const [result] = await database.query("INSERT INTO users (ID, username, password, email, token, verified, verification_code) VALUES (?, ?, ?, ?, ?, ?, ?)", [this.ID, this.username, this.password, this.email, this.token, this.verified, this.verification_code]).then(() => {
                 database.query("COMMIT");
             }).catch((err: any) => {
                 console.log(err);
@@ -118,6 +122,26 @@ export class Users {
     static async findByToken(token: string) {
         try {
             const [result] = await database.query("SELECT * FROM users WHERE token = ?", [token]);
+
+            return result;
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    static async verify(token: string) {
+        try {
+            await database.query("START TRANSACTION").catch((err: any) => {
+                console.log(err);
+                database.query("ROLLBACK");
+            });
+
+            const [result] = await database.query("UPDATE users SET verified = ? WHERE token = ?", [true, token]).then(() => {
+                database.query("COMMIT");
+            }).catch((err: any) => {
+                console.log(err);
+                database.query("ROLLBACK");
+            });
 
             return result;
         } catch (err) {

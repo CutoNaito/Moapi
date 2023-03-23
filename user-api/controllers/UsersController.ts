@@ -58,7 +58,8 @@ export async function getByToken(req: Request, res: Response) {
 export async function create(req: Request, res: Response) {
     const UUID: string = uuid();
     const hashedPassword: string = await bcrypt.hash(req.body.password, 10);
-    const User = new Users(UUID, req.body.username, req.body.email, hashedPassword, req.body.token);
+    const verification_code_hashed: string = await bcrypt.hash(req.body.verification_code, 10);
+    const User = new Users(UUID, req.body.username, req.body.email, hashedPassword, req.body.token, false, verification_code_hashed);
 
     if (req.headers.authorization !== auth_token) {
         res.status(401).json({message: "Unauthorized"});
@@ -70,7 +71,7 @@ export async function create(req: Request, res: Response) {
             res.status(500).json(err);
         }
     }
-}
+};
 
 export async function update(req: Request, res: Response) {
     const User = new Users(req.params.id, req.body.username, req.body.email, req.body.password);
@@ -85,7 +86,7 @@ export async function update(req: Request, res: Response) {
             res.status(500).json(err);
         }
     }
-}
+};
 
 export async function remove(req: Request, res: Response) {
     const User = new Users(req.params.id);
@@ -100,7 +101,7 @@ export async function remove(req: Request, res: Response) {
             res.status(500).json(err);
         }
     }
-}
+};
 
 export async function login(req: Request, res: Response) {
     try {
@@ -111,4 +112,24 @@ export async function login(req: Request, res: Response) {
         console.log(err);
         res.status(500).json(err);
     }
-}
+};
+
+export async function verify(req: Request, res: Response) {
+    if (req.headers.authorization !== auth_token) {
+        res.status(401).json({message: "Unauthorized"});
+    } else {
+        try {
+            const user_by_token = await Users.findByToken(req.params.token);
+            const match = await bcrypt.compare(req.body.verification_code, user_by_token[0].verification_code_hashed);
+
+            if (match) {
+                const result = await Users.verify(req.params.token);
+                res.status(200).json({message: "Verification successful", result: result, match: match});
+            } else {
+                res.status(401).json({message: "Verification failed", match: match});
+            }
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    }
+};
