@@ -49,9 +49,9 @@ export async function getByEmail(req: Request, res: Response) {
 export async function getByToken(req: Request, res: Response) {
     try {
         const [result] = await Users.findByToken(req.params.token);
-        res.status(200).json(result);
+        res.status(200).json({result: result});
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json({error: err});
     }
 };
 
@@ -59,13 +59,14 @@ export async function create(req: Request, res: Response) {
     const UUID: string = uuid();
     const hashedPassword: string = await bcrypt.hash(req.body.password, 10);
     const verification_code_hashed: string = await bcrypt.hash(req.body.verification_code, 10);
-    const User = new Users(UUID, req.body.username, req.body.email, hashedPassword, req.body.token, false, verification_code_hashed);
+    const User = new Users(UUID, req.body.username, req.body.email, hashedPassword, req.body.token, undefined, verification_code_hashed);
 
     if (req.headers.authorization !== auth_token) {
         res.status(401).json({message: "Unauthorized"});
     } else {
         try {
             const [result] = await User.save();
+            console.log({result: result});
             res.status(201).json(result);
         } catch (err) {
             res.status(500).json(err);
@@ -120,7 +121,7 @@ export async function verify(req: Request, res: Response) {
     } else {
         try {
             const user_by_token = await Users.findByToken(req.params.token);
-            const match = await bcrypt.compare(req.body.verification_code, user_by_token[0].verification_code_hashed);
+            const match = await bcrypt.compare(req.body.verification_code, user_by_token[0].verification_code);
 
             if (match) {
                 const result = await Users.verify(req.params.token);

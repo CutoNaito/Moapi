@@ -3,13 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import JsonFormatter from "react-json-formatter";
-import 'dotenv/config';
+import env from "react-dotenv";
 
-if (!process.env.SERVER_URI) {
-    throw new Error("SERVER_URI not set");
+if (!env.SERVER_URI || !env.AUTH_TOKEN) {
+    throw new Error("Environment variables not set");
 }
 
-const SERVER_URI = process.env.SERVER_URI;
+const SERVER_URI = env.SERVER_URI;
 
 export function Home() {
     const [url, setUrl] = useState("");
@@ -18,15 +18,23 @@ export function Home() {
     const [body, setBody] = useState("");
     const [bodyParsed, setBodyParsed] = useState({});
     const [response, setResponse] = useState({});
-    const [isVerified, setIsVerified] = useState(false);
 
     async function fetchUsername() {
         const token = document.cookie.split("=")[1];
         const response = await fetch(SERVER_URI + "/users/token/" + token);
         const data = await response.json();
         
-        setUser_id(data[0].ID);
-        setIsVerified(data[0].verified);
+        if (data.error) {
+            history("/login");
+        }
+
+        console.log(data.result.ID, data.result.verified);
+        
+        setUser_id(data.result.ID);
+
+        if(data.result.verified == 0) {
+            history("/verify");
+        }
     }
 
     const history = useNavigate();
@@ -38,15 +46,7 @@ export function Home() {
     }
 
     useEffect(() => {
-        if (!document.cookie.includes("token")) {
-            history("/login");
-        } else {
-            fetchUsername();
-
-            if (!isVerified) {
-                history("/verify");
-            }
-        }
+        fetchUsername();
     }, []);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -74,7 +74,8 @@ export function Home() {
                     await fetch(SERVER_URI + "/stored_uris", {
                         method: "POST",
                         headers: {
-                            "Content-Type": "application/json"
+                            "Content-Type": "application/json",
+                            "Authorization": env.AUTH_TOKEN!
                         },
                         body: JSON.stringify({
                             uri: url,

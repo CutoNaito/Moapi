@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
-import 'dotenv/config';
+import env from "react-dotenv";
 
-if (!process.env.SERVER_URI) {
-    throw new Error("SERVER_URI not set");
+if (!env.SERVER_URI || !env.AUTH_TOKEN) {
+    throw new Error("Environment variables not set");
 }
 
-const SERVER_URI = process.env.SERVER_URI;
+const SERVER_URI = env.SERVER_URI;
 
 export function Login() {
     const [username, setUsername] = useState("");
@@ -54,6 +54,7 @@ export function Login() {
                 <label htmlFor="password">Password</label>
                 <input type="password" id="password" name="password" onChange={(e) => setPassword(e.target.value)}/>
                 <button type="submit">Login</button>
+                <a href="/register">Register</a>
             </form>
             <Footer />
         </div>

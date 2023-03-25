@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import 'dotenv/config';
+import env from "react-dotenv";
 
-if (!process.env.SERVER_URI || !process.env.AUTH_TOKEN) {
+if (!env.SERVER_URI || !env.AUTH_TOKEN) {
     throw new Error("Environment variables not set");
 }
 
-const SERVER_URI = process.env.SERVER_URI;
+const SERVER_URI = env.SERVER_URI;
 
 function GenerateCode(lenght: number) {
     let code = "";
@@ -33,25 +33,48 @@ export function Register() {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        const code = GenerateCode(6);
+        const token = GenerateCode(32);
+
         const response = await fetch(SERVER_URI + "/users", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": process.env.AUTH_TOKEN!
+                "Authorization": env.AUTH_TOKEN!
             },
             body: JSON.stringify({
                 username: username,
                 email: email,
                 password: password,
-                verification_code: GenerateCode(6)
+                token: token,
+                verification_code: code
             })
         });
 
         const data = await response.json();
 
         if (!data.error) {
-            document.cookie = `token=${data.token}`;
-            history("/verify");
+            document.cookie = `token=${token}`;
+
+            const mail = await fetch(SERVER_URI + "/smtp", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": env.AUTH_TOKEN!
+                },
+                body: JSON.stringify({
+                    email: email,
+                    code: code
+                })
+            });
+
+            const mailData = await mail.json();
+
+            if (!mailData.error) {
+                history("/verify");
+            } else {
+                alert("Internal server error, try again later")
+            }
         } else {
             console.log("Error");
         }

@@ -6,10 +6,10 @@ export class Users {
     password?: string;
     email?: string;
     token?: string;
-    verified?: boolean;
+    verified?: number;
     verification_code?: string;
 
-    constructor(ID?: string, username?: string, email?: string, password?: string, token?: string, verified?: boolean, verification_code?: string) {
+    constructor(ID?: string, username?: string, email?: string, password?: string, token?: string, verified?: number, verification_code?: string) {
         if (ID) this.ID = ID;
         if (username) this.username = username;
         if (email) this.email = email;
@@ -26,7 +26,7 @@ export class Users {
                 database.query("ROLLBACK");
             });
 
-            const [result] = await database.query("INSERT INTO users (ID, username, password, email, token, verified, verification_code) VALUES (?, ?, ?, ?, ?, ?, ?)", [this.ID, this.username, this.password, this.email, this.token, this.verified, this.verification_code]).then(() => {
+            const [result] = await database.query("INSERT INTO users (ID, username, password, email, token, verified, verification_code) VALUES (?, ?, ?, ?, ?, ?, ?)", [this.ID, this.username, this.password, this.email, this.token, false, this.verification_code]).then(() => {
                 database.query("COMMIT");
             }).catch((err: any) => {
                 console.log(err);

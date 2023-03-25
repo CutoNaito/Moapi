@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import 'dotenv/config';
+import env from "react-dotenv";
 
-if (!process.env.SERVER_URI) {
-    throw new Error("SERVER_URI not set");
+if (!env.SERVER_URI || !env.AUTH_TOKEN) {
+    throw new Error("Environment variables not set");
 }
 
-const SERVER_URI = process.env.SERVER_URI;
+const SERVER_URI = env.SERVER_URI;
 
 export function Verify() {
     const [code, setCode] = useState("");
@@ -22,6 +22,8 @@ export function Verify() {
             const response = await fetch(SERVER_URI + "/users/token/" + token);
             const data = await response.json();
 
+            console.log(data);
+
             if (data[0].verified) {
                 history("/");
             }
@@ -35,10 +37,11 @@ export function Verify() {
 
         const token = document.cookie.split("=")[1];
 
-        const response = await fetch(SERVER_URI + "/users/verify" + token, {
+        const response = await fetch(SERVER_URI + "/users/verify/" + token, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": env.AUTH_TOKEN!
             },
             body: JSON.stringify({ verification_code: code })
         });
