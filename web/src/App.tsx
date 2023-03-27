@@ -4,6 +4,8 @@ import { Home } from './pages/Home';
 import { Login } from './pages/login/Login';
 import { Register } from './pages/login/Register';
 import { Verify } from './pages/login/Verify';
+import { Search } from './pages/Search';
+import { Userpage } from './pages/Userpage';
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/verify" element={<Verify />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/userpage" element={<Userpage />} />
       </Routes>
     </Router>
   );

@@ -3,6 +3,12 @@ import { Footer } from "../components/Footer";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
+interface Stored_URIs {
+    ID: string;
+    ID_user: string;
+    uri: string;
+}
+
 export function Userpage() {
     const history = useNavigate();
     const [searchParams] = useSearchParams();
@@ -13,6 +19,7 @@ export function Userpage() {
     };
 
     const [username, setUsername] = useState("");
+    const [requestHistory, setRequestHistory] = useState<string[]>([]);
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -26,13 +33,36 @@ export function Userpage() {
             setUsername(data.username);
         };
 
+        const fetchRequestHistory = async () => {
+            const response = await fetch(`http://localhost:4000/stored_uris/user/${userID}`);
+            const data = await response.json();
+            
+            if (data.error) {
+                setRequestHistory([]);
+            };
+
+            const URIs = data.map((x: Stored_URIs) => {
+                return x.uri;
+            });
+
+            setRequestHistory(URIs);
+        };
+
         fetchUser();
+        fetchRequestHistory();
     }, []);
 
     return (
         <div className="userpage">
             <Header />
             <h1>{username}</h1>
+            <ul>
+                {requestHistory.map((x) =>
+                    <li>
+                        {x}
+                    </li>
+                )}
+            </ul>
             <Footer />
         </div>
     );
