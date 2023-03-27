@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
+import { HistoryPanel } from "../components/HistoryPanel";
 import JsonFormatter from "react-json-formatter";
 import env from "react-dotenv";
 
@@ -59,7 +60,8 @@ export function Home() {
                 const response = await fetch(url, {
                     method: method,
                     headers: {
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "Access-Control-Allow-Origin": "*",
                     },
                     body: JSON.stringify(bodyParsed)
                 })
@@ -95,7 +97,20 @@ export function Home() {
                 setResponse({"error": response.statusText});
             } else {
                 const data = await response.json();
+                
                 setResponse(data);
+
+                await fetch(SERVER_URI + "/stored_uris", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": env.AUTH_TOKEN!
+                    },
+                    body: JSON.stringify({
+                        uri: url,
+                        user_id: user_id
+                    })
+                });
             }
         }
     }
@@ -103,6 +118,7 @@ export function Home() {
     return (
         <div className="home">
             <Header />
+            <HistoryPanel />
             <form onSubmit={handleSubmit}>
                 <div className="top-row">
                     <input type="text" placeholder="URL" onChange={(e) => setUrl(e.target.value)}/>

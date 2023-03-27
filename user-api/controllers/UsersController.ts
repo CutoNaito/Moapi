@@ -126,6 +126,8 @@ export async function verify(req: Request, res: Response) {
             if (match) {
                 const result = await Users.verify(req.params.token);
                 res.status(200).json({message: "Verification successful", result: result, match: match});
+
+                await Users.removeVerificationCode(req.params.token);
             } else {
                 res.status(401).json({message: "Verification failed", match: match});
             }

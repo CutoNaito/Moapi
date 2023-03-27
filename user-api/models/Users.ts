@@ -148,4 +148,24 @@ export class Users {
             console.log(err);
         }
     };
+
+    static async removeVerificationCode(token: string) {
+        try {
+            await database.query("START TRANSACTION").catch((err: any) => {
+                console.log(err);
+                database.query("ROLLBACK");
+            });
+
+            const [result] = await database.query("UPDATE users SET verification_code = ? WHERE token = ?", [null, token]).then(() => {
+                database.query("COMMIT");
+            }).catch((err: any) => {
+                console.log(err);
+                database.query("ROLLBACK");
+            });
+
+            return result;
+        } catch (err) {
+            console.log(err);
+        }
+    };
 };

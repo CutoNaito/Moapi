@@ -1,4 +1,4 @@
-import { app as _app, BrowserWindow as _BrowserWindow } from 'electron';
+const { app: _app, BrowserWindow: _BrowserWindow } = require('electron');
 
 const app = _app;
 const BrowserWindow = _BrowserWindow;

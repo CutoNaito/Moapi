@@ -56,8 +56,8 @@ export function Verify() {
     };
 
     return (
-        <div className="verifyForm">
-            <h1 className="verifyh1">Verify</h1>
+        <div className="loginForm">
+            <h1 className="loginh1">Verify</h1>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="code">Code</label>
                 <input type="text" id="code" name="code" onChange={(e) => setCode(e.target.value)}/>

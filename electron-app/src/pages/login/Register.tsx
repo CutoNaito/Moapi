@@ -81,8 +81,8 @@ export function Register() {
     }
 
     return (
-        <div className="registerForm">
-            <h1 className="registerh1">Register</h1>
+        <div className="loginForm">
+            <h1 className="loginh1">Register</h1>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="username">Username</label>
                 <input type="text" id="username" name="username" onChange={(e) => setUsername(e.target.value)}/>

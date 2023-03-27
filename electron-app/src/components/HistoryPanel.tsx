@@ -1,11 +1,11 @@
 import { useState ,useEffect } from "react";
-import 'dotenv/config';
+import env from "react-dotenv";
 
-if (!process.env.SERVER_URI) {
-    throw new Error("SERVER_URI not set");
+if (!env.SERVER_URI || !env.AUTH_TOKEN) {
+    throw new Error("Environment variables not set");
 }
 
-const SERVER_URI = process.env.SERVER_URI;
+const SERVER_URI = env.SERVER_URI;
 
 export function HistoryPanel() {
     const [user_id, setUser_id] = useState("");
