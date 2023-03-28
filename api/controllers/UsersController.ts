@@ -12,8 +12,8 @@ const auth_token = process.env.AUTH;
 
 export async function getAll(req: Request, res: Response) {
     try {
-        const [result] = await Users.findAll();
-        res.status(200).json(result);
+        const result = await Users.findAll();
+        res.status(200).json({result: result});
     } catch (err) {
         res.status(500).json(err);
     }

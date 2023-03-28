@@ -12,6 +12,14 @@ export function Header() {
             <Button variant="secondary">
                 <Link to={"/login"}>Login</Link>
             </Button>
+
+            <Button variant="secondary">
+                <Link to={"/register"}>Register</Link>
+            </Button>
+
+            <Button variant="secondary">
+                <Link to={"/search"}>Search</Link>
+            </Button>
         </header>
     );
 }

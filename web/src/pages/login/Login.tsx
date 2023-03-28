@@ -36,11 +36,17 @@ export function Login() {
         console.log(response);
         const data = await response.json();
 
-        if (data.match && !data.error) {
-            document.cookie = `token=${data.token}`;
-            history("/");
+        const token = data.result[0].token;
+
+        if (token === undefined) {
+            alert("Error");
         } else {
-            console.log("Error");
+            if (data.match && !data.error) {
+                document.cookie = `token=${token}`;
+                history("/");
+            } else {
+                console.log("Error");
+            }
         }
     }
 
