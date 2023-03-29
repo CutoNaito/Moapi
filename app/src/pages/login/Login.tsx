@@ -16,13 +16,14 @@ export function Login() {
     const history = useNavigate();
 
     useEffect(() => {
-        if (document.cookie.includes("token")) {
+        if (document.cookie.includes("token") && document.cookie.split("=")[1] != "undefined") {
             history("/");
         }
     }, []);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
         const response = await fetch(SERVER_URI + "/users/login/", {
             method: "POST",
             headers: {
@@ -33,11 +34,12 @@ export function Login() {
                 password: password
             })
         });
-        console.log(response);
+
         const data = await response.json();
+        const token = data.result[0].token;
 
         if (data.match && !data.error) {
-            document.cookie = `token=${data.token}`;
+            document.cookie = `token=${token}`;
             history("/");
         } else {
             console.log("Error");

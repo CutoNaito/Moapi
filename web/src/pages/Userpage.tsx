@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 interface Stored_URIs {
     ID: string;
     ID_user: string;
-    uri: string;
+    URI: string;
 }
 
 export function Userpage() {
@@ -36,13 +36,15 @@ export function Userpage() {
         const fetchRequestHistory = async () => {
             const response = await fetch(`http://localhost:4000/stored_uris/user/${userID}`);
             const data = await response.json();
+
+            console.log(data);
             
             if (data.error) {
                 setRequestHistory([]);
             };
 
             const URIs = data.map((x: Stored_URIs) => {
-                return x.uri;
+                return x.URI;
             });
 
             setRequestHistory(URIs);

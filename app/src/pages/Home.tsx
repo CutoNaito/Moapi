@@ -22,6 +22,11 @@ export function Home() {
 
     async function fetchUsername() {
         const token = document.cookie.split("=")[1];
+
+        if (!token || token == "undefined") {
+            history("/login");
+        }
+
         const response = await fetch(SERVER_URI + "/users/token/" + token);
         const data = await response.json();
         
@@ -80,7 +85,7 @@ export function Home() {
                             "Authorization": env.AUTH_TOKEN!
                         },
                         body: JSON.stringify({
-                            uri: url,
+                            URI: url,
                             user_id: user_id
                         })
                     });
@@ -89,6 +94,8 @@ export function Home() {
                 setResponse({"error": error});
             }
         } else {
+            console.log(method);
+
             const response = await fetch(url, {
                 method: method
             })

@@ -29,7 +29,7 @@ export async function getByID(req: Request, res: Response) {
 
 export async function getByID_users(req: Request, res: Response) {
     try {
-        const [result] = await StoredURIs.findByID_users(req.params.user_id);
+        const result = await StoredURIs.findByID_users(req.params.user_id);
         res.status(200).json(result);
     } catch (err) {
         res.status(500).json(err);
