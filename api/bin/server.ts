@@ -1,7 +1,7 @@
 import express from 'express';
-import UsersRouter from './routes/UsersRoutes';
-import StoredURIsRouter from './routes/StoredURIsRoutes';
-import SMTPRouter from './routes/SMTP/SMTPRoutes';
+import UsersRouter from '../src/routes/UsersRoutes';
+import StoredURIsRouter from '../src/routes/StoredURIsRoutes';
+import SMTPRouter from '../src/routes/SMTP/SMTPRoutes';
 import 'dotenv/config';
 import cors from 'cors';
 

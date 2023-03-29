@@ -1,11 +1,11 @@
 {
-  "name": "user-api",
+  "name": "moapi-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "bin/server.ts",
   "scripts": {
-    "start": "ts-node server.ts",
-    "dev": "nodemon server.ts"
+    "start": "ts-node bin/server.ts",
+    "dev": "nodemon bin/server.ts"
   },
   "keywords": [],
   "author": "",

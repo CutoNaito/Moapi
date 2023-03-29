@@ -1,4 +1,13 @@
 import database from '../config/DBConfig';
+import { Logger } from '../logger/Logger';
+import 'dotenv/config';
+
+if (!process.env.LOG_PATH) {
+    throw new Error('LOG_PATH is not defined');
+}
+
+const PATH = process.env.LOG_PATH;
+const logger = new Logger(PATH);
 
 export class StoredURIs {
     ID?: string;
@@ -14,60 +23,60 @@ export class StoredURIs {
     async save() {
         try {
             await database.query('START TRANSACTION').catch((err: any) => {
-                console.log(err);
+                logger.log(err);
                 database.query('ROLLBACK');
             });
 
             const [result] = await database.query('INSERT INTO stored_uris (ID, ID_users, URI) VALUES (?, ?, ?)', [this.ID, this.ID_users, this.URI]).then(() => {
                 database.query('COMMIT');
             }).catch((err: any) => {
-                console.log(err);
+                logger.log(err);
                 database.query('ROLLBACK');
             });
 
             return result;
         } catch (err) {
-            console.log(err);
+            logger.log(err);
         }
     };
 
     async update() {
         try {
             await database.query('START TRANSACTION').catch((err: any) => {
-                console.log(err);
+                logger.log(err);
                 database.query('ROLLBACK');
             });
 
             const [result] = await database.query('UPDATE stored_uris SET ID_users = ?, URI = ? WHERE ID = ?', [this.ID_users, this.URI, this.ID]).then(() => {
                 database.query('COMMIT');
             }).catch((err: any) => {
-                console.log(err);
+                logger.log(err);
                 database.query('ROLLBACK');
             });
 
             return result;
         } catch (err) {
-            console.log(err);
+            logger.log(err);
         }
     };
 
     async delete() {
         try {
             await database.query('START TRANSACTION').catch((err: any) => {
-                console.log(err);
+                logger.log(err);
                 database.query('ROLLBACK');
             });
 
             const [result] = await database.query('DELETE FROM stored_uris WHERE ID = ?', [this.ID]).then(() => {
                 database.query('COMMIT');
             }).catch((err: any) => {
-                console.log(err);
+                logger.log(err);
                 database.query('ROLLBACK');
             });
 
             return result;
         } catch (err) {
-            console.log(err);
+            logger.log(err);
         }
     };
 
@@ -77,7 +86,7 @@ export class StoredURIs {
 
             return result;
         } catch (err) {
-            console.log(err);
+            logger.log(err);
         }
     };
 
@@ -87,7 +96,7 @@ export class StoredURIs {
 
             return result;
         } catch (err) {
-            console.log(err);
+            logger.log(err);
         }
     };
 
@@ -97,7 +106,7 @@ export class StoredURIs {
 
             return result;
         } catch (err) {
-            console.log(err);
+            logger.log(err);
         }
     };
 
@@ -107,7 +116,7 @@ export class StoredURIs {
 
             return result;
         } catch (err) {
-            console.log(err);
+            logger.log(err);
         }
     };
 }

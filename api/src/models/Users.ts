@@ -1,4 +1,13 @@
 import database from "../config/DBConfig";
+import { Logger } from "../logger/Logger";
+import 'dotenv/config';
+
+if (!process.env.LOG_PATH) {
+    throw new Error('LOG_PATH is not defined');
+}
+
+const PATH = process.env.LOG_PATH;
+const logger = new Logger(PATH);
 
 export class Users {
     ID?: string;
@@ -22,60 +31,60 @@ export class Users {
     async save() {
         try {
             await database.query("START TRANSACTION").catch((err: any) => {
-                console.log(err);
+                logger.log(err);
                 database.query("ROLLBACK");
             });
 
             const [result] = await database.query("INSERT INTO users (ID, username, password, email, token, verified, verification_code) VALUES (?, ?, ?, ?, ?, ?, ?)", [this.ID, this.username, this.password, this.email, this.token, false, this.verification_code]).then(() => {
                 database.query("COMMIT");
             }).catch((err: any) => {
-                console.log(err);
+                logger.log(err);
                 database.query("ROLLBACK");
             });
 
             return result;
         } catch (err) {
-            console.log(err);
+            logger.log(err);
         }
     };
 
     async update() {
         try {
             await database.query("START TRANSACTION").catch((err: any) => {
-                console.log(err);
+                logger.log(err);
                 database.query("ROLLBACK");
             });
 
             const [result] = await database.query("UPDATE users SET username = ?, password = ?, email = ? WHERE ID = ?", [this.username, this.password, this.email, this.ID]).then(() => {
                 database.query("COMMIT");
             }).catch((err: any) => {
-                console.log(err);
+                logger.log(err);
                 database.query("ROLLBACK");
             });
 
             return result;
         } catch (err) {
-            console.log(err);
+            logger.log(err);
         }
     };
 
     async delete() {
         try {
             await database.query("START TRANSACTION").catch((err: any) => {
-                console.log(err);
+                logger.log(err);
                 database.query("ROLLBACK");
             });
 
             const [result] = await database.query("DELETE FROM users WHERE ID = ?", [this.ID]).then(() => {
                 database.query("COMMIT");
             }).catch((err: any) => {
-                console.log(err);
+                logger.log(err);
                 database.query("ROLLBACK");
             });
 
             return result;
         } catch (err) {
-            console.log(err);
+            logger.log(err);
         }
     };
 
@@ -85,7 +94,7 @@ export class Users {
 
             return result;
         } catch (err) {
-            console.log(err);
+            logger.log(err);
         }
     };
 
@@ -95,7 +104,7 @@ export class Users {
 
             return result;
         } catch (err) {
-            console.log(err);
+            logger.log(err);
         }
     };
 
@@ -105,7 +114,7 @@ export class Users {
 
             return result;
         } catch (err) {
-            console.log(err);
+            logger.log(err);
         }
     };
 
@@ -115,7 +124,7 @@ export class Users {
 
             return result;
         } catch (err) {
-            console.log(err);
+            logger.log(err);
         }
     };
 
@@ -125,47 +134,47 @@ export class Users {
 
             return result;
         } catch (err) {
-            console.log(err);
+            logger.log(err);
         }
     };
 
     static async verify(token: string) {
         try {
             await database.query("START TRANSACTION").catch((err: any) => {
-                console.log(err);
+                logger.log(err);
                 database.query("ROLLBACK");
             });
 
             const [result] = await database.query("UPDATE users SET verified = ? WHERE token = ?", [true, token]).then(() => {
                 database.query("COMMIT");
             }).catch((err: any) => {
-                console.log(err);
+                logger.log(err);
                 database.query("ROLLBACK");
             });
 
             return result;
         } catch (err) {
-            console.log(err);
+            logger.log(err);
         }
     };
 
     static async removeVerificationCode(token: string) {
         try {
             await database.query("START TRANSACTION").catch((err: any) => {
-                console.log(err);
+                logger.log(err);
                 database.query("ROLLBACK");
             });
 
             const [result] = await database.query("UPDATE users SET verification_code = ? WHERE token = ?", [null, token]).then(() => {
                 database.query("COMMIT");
             }).catch((err: any) => {
-                console.log(err);
+                logger.log(err);
                 database.query("ROLLBACK");
             });
 
             return result;
         } catch (err) {
-            console.log(err);
+            logger.log(err);
         }
     };
 };
