@@ -27,7 +27,7 @@ export class StoredURIs {
                 database.query('ROLLBACK');
             });
 
-            const [result] = await database.query('INSERT INTO stored_uris (ID, ID_users, URI) VALUES (?, ?, ?)', [this.ID, this.ID_users, this.URI]).then(() => {
+            const [result] = await database.query('INSERT INTO stored_URIs (ID, ID_users, URI) VALUES (?, ?, ?)', [this.ID, this.ID_users, this.URI]).then(() => {
                 database.query('COMMIT');
             }).catch((err: any) => {
                 logger.log(err);
@@ -47,7 +47,7 @@ export class StoredURIs {
                 database.query('ROLLBACK');
             });
 
-            const [result] = await database.query('UPDATE stored_uris SET ID_users = ?, URI = ? WHERE ID = ?', [this.ID_users, this.URI, this.ID]).then(() => {
+            const [result] = await database.query('UPDATE stored_URIs SET ID_users = ?, URI = ? WHERE ID = ?', [this.ID_users, this.URI, this.ID]).then(() => {
                 database.query('COMMIT');
             }).catch((err: any) => {
                 logger.log(err);
@@ -67,7 +67,7 @@ export class StoredURIs {
                 database.query('ROLLBACK');
             });
 
-            const [result] = await database.query('DELETE FROM stored_uris WHERE ID = ?', [this.ID]).then(() => {
+            const [result] = await database.query('DELETE FROM stored_URIs WHERE ID = ?', [this.ID]).then(() => {
                 database.query('COMMIT');
             }).catch((err: any) => {
                 logger.log(err);
@@ -82,7 +82,7 @@ export class StoredURIs {
 
     static async findByID(ID: string) {
         try {
-            const [result] = await database.query('SELECT * FROM stored_uris WHERE ID = ?', [ID]);
+            const [result] = await database.query('SELECT * FROM stored_URIs WHERE ID = ?', [ID]);
 
             return result;
         } catch (err) {
@@ -92,7 +92,7 @@ export class StoredURIs {
 
     static async findByID_users(ID_users: string) {
         try {
-            const [result] = await database.query('SELECT * FROM stored_uris WHERE ID_users = ?', [ID_users]);
+            const [result] = await database.query('SELECT * FROM stored_URIs WHERE ID_users = ?', [ID_users]);
 
             return result;
         } catch (err) {
@@ -102,7 +102,7 @@ export class StoredURIs {
 
     static async findByURI(URI: string) {
         try {
-            const [result] = await database.query('SELECT * FROM stored_uris WHERE URI = ?', [URI]);
+            const [result] = await database.query('SELECT * FROM stored_URIs WHERE URI = ?', [URI]);
 
             return result;
         } catch (err) {
@@ -112,7 +112,7 @@ export class StoredURIs {
 
     static async findAll() {
         try {
-            const [result] = await database.query('SELECT * FROM stored_uris');
+            const [result] = await database.query('SELECT * FROM stored_URIs');
 
             return result;
         } catch (err) {
