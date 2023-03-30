@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
-import { HistoryPanel } from "../components/HistoryPanel";
 import JsonFormatter from "react-json-formatter";
 import env from "react-dotenv";
 
@@ -115,7 +114,8 @@ export function Home() {
                     },
                     body: JSON.stringify({
                         uri: url,
-                        user_id: user_id
+                        user_id: user_id,
+                        method: method
                     })
                 });
             }
@@ -125,7 +125,6 @@ export function Home() {
     return (
         <div className="home">
             <Header />
-            <HistoryPanel />
             <form onSubmit={handleSubmit}>
                 <div className="top-row">
                     <input type="text" placeholder="URL" onChange={(e) => setUrl(e.target.value)}/>

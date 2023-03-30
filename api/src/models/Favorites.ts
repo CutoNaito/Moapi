@@ -9,7 +9,7 @@ if (!process.env.LOG_PATH) {
 const PATH = process.env.LOG_PATH;
 const logger = new Logger(PATH);
 
-export class StoredURIs {
+export class Favorites {
     ID?: string;
     ID_users?: string;
     URI?: string;
@@ -29,7 +29,7 @@ export class StoredURIs {
                 database.query('ROLLBACK');
             });
 
-            const [result] = await database.query('INSERT INTO stored_URIs (ID, ID_users, URI, method) VALUES (?, ?, ?, ?)', [this.ID, this.ID_users, this.URI, this.method]).then(() => {
+            const [result] = await database.query('INSERT INTO favorites (ID, ID_users, URI, method) VALUES (?, ?, ?, ?)', [this.ID, this.ID_users, this.URI, this.method]).then(() => {
                 database.query('COMMIT');
             }).catch((err: any) => {
                 logger.log(`${err}`);
@@ -40,7 +40,7 @@ export class StoredURIs {
         } catch (err) {
             logger.log(`${err}`);
         }
-    };
+    }
 
     async update() {
         try {
@@ -49,86 +49,86 @@ export class StoredURIs {
                 database.query('ROLLBACK');
             });
 
-            const [result] = await database.query('UPDATE stored_URIs SET ID_users = ?, URI = ?, method = ? WHERE ID = ?', [this.ID_users, this.URI, this.method, this.ID]).then(() => {
+            const [result] = await database.query('UPDATE favorites SET ID_users = ?, URI = ?, method = ? WHERE ID = ?', [this.ID_users, this.URI, this.method, this.ID]).then(() => {
                 database.query('COMMIT');
             }).catch((err: any) => {
                 logger.log(`${err}`);
                 database.query('ROLLBACK');
             });
-
-            return result;
-        } catch (err) {
-            logger.log(`${err}`);
-        }
-    };
-
-    async delete() {
-        try {
-            await database.query('START TRANSACTION').catch((err: any) => {
-                logger.log(`${err}`);
-                database.query('ROLLBACK');
-            });
-
-            const [result] = await database.query('DELETE FROM stored_URIs WHERE ID = ?', [this.ID]).then(() => {
-                database.query('COMMIT');
-            }).catch((err: any) => {
-                logger.log(`${err}`);
-                database.query('ROLLBACK');
-            });
-
-            return result;
-        } catch (err) {
-            logger.log(`${err}`);
-        }
-    };
-
-    static async findByID(ID: string) {
-        try {
-            const [result] = await database.query('SELECT * FROM stored_URIs WHERE ID = ?', [ID]);
-
-            return result;
-        } catch (err) {
-            logger.log(`${err}`);
-        }
-    };
-
-    static async findByID_users(ID_users: string) {
-        try {
-            const [result] = await database.query('SELECT * FROM stored_URIs WHERE ID_users = ?', [ID_users]);
-
-            return result;
-        } catch (err) {
-            logger.log(`${err}`);
-        }
-    };
-
-    static async findByURI(URI: string) {
-        try {
-            const [result] = await database.query('SELECT * FROM stored_URIs WHERE URI = ?', [URI]);
-
-            return result;
-        } catch (err) {
-            logger.log(`${err}`);
-        }
-    };
-
-    static async findAll() {
-        try {
-            const [result] = await database.query('SELECT * FROM stored_URIs');
-
-            return result;
-        } catch (err) {
-            logger.log(`${err}`);
-        }
-    };
-
-    static async findByMethod(method: string) {
-        try {
-            const [result] = await database.query('SELECT * FROM stored_URIs WHERE method = ?', [method]);
 
             return result;
         } catch (err) {
             logger.log(`${err}`);
         }
     }
-}
+
+    static async delete(ID: string) {
+        try {
+            await database.query('START TRANSACTION').catch((err: any) => {
+                logger.log(`${err}`);
+                database.query('ROLLBACK');
+            });
+
+            const [result] = await database.query('DELETE FROM favorites WHERE ID = ?', [ID]).then(() => {
+                database.query('COMMIT');
+            }).catch((err: any) => {
+                logger.log(`${err}`);
+                database.query('ROLLBACK');
+            });
+
+            return result;
+        } catch (err) {
+            logger.log(`${err}`);
+        }
+    }
+
+    static async findByID(ID: string) {
+        try {
+            const [result] = await database.query('SELECT * FROM favorites WHERE ID = ?', [ID]);
+
+            return result;
+        } catch (err) {
+            logger.log(`${err}`);
+        }
+    }
+
+    static async findByID_users(ID_users: string) {
+        try {
+            const [result] = await database.query('SELECT * FROM favorites WHERE ID_users = ?', [ID_users]);
+
+            return result;
+        } catch (err) {
+            logger.log(`${err}`);
+        }
+    }
+
+    static async findByURI(URI: string) {
+        try {
+            const [result] = await database.query('SELECT * FROM favorites WHERE URI = ?', [URI]);
+
+            return result;
+        } catch (err) {
+            logger.log(`${err}`);
+        }
+    }
+
+    static async findByMethod(method: string) {
+        try {
+            const [result] = await database.query('SELECT * FROM favorites WHERE method = ?', [method]);
+
+            return result;
+        } catch (err) {
+            logger.log(`${err}`);
+        }
+    }
+
+    static async findAll() {
+        try {
+            const [result] = await database.query('SELECT * FROM favorites');
+
+            return result;
+        } catch (err) {
+            logger.log(`${err}`);
+        }
+    }
+};

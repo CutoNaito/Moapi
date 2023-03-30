@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getAll, getByID, getByID_users, getByURI, getByMethod, create } from "../controllers/StoredURIsController";
+import { getAll, getByID, getByID_users, getByURI, getByMethod, create } from "../controllers/FavouritesController";
 
 const router = Router();
 
