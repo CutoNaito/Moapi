@@ -13,26 +13,46 @@ export function AdminUser() {
     const [searchParams] = useSearchParams();
     const userID = searchParams.get("id");
 
+    const [username, setUsername] = useState("");
+
+    const token = document.cookie.split("=")[1];
+
     if (userID === null) {
         history("/");
     };
 
-    async function fetchUser() {
-        const response = await fetch(SERVER_URI + "/users/");
+    async function CheckIfAdmin() {
+        const response = await fetch(SERVER_URI + "/users/token/" + token);
         const data = await response.json();
 
         if (data.result[0].isAdmin == 0) {
             history("/login");
-        }
+        };
     };
 
+    async function fetchUser() {
+        const response = await fetch(SERVER_URI + `/users/${userID}`);
+        const data = await response.json();
+
+        if (data.error) {
+            history("/");
+        };
+
+        setUsername(data.username);
+    }
+
     useEffect(() => {
+        if (!token) {
+            history("/login");
+        };
+
+        CheckIfAdmin();
         fetchUser();
     }, []);
 
     return (
         <div className="admin-user">
-            <h1>Admin User</h1>
+            <h1>{username}</h1>
         </div>
     );
 }

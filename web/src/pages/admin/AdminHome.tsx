@@ -30,8 +30,10 @@ export function AdminHome() {
     const [users, setUsers] = useState<User[]>([]);
     const history = useNavigate();
 
-    async function fetchUser() {
-        const response = await fetch(SERVER_URI + "/users/");
+    const token = document.cookie.split("=")[1];
+
+    async function CheckIfAdmin() {
+        const response = await fetch(SERVER_URI + "/users/token/" + token);
         const data = await response.json();
 
         if (data.result[0].isAdmin == 0) {
@@ -49,9 +51,25 @@ export function AdminHome() {
             alert("Something happened, try again later");
         };
     }
+
+    async function fetchUserList() {
+        const response = await fetch(SERVER_URI + "/users/");
+        const data = await response.json();
+
+        if (!data.error) {
+            setUsers(data.result);
+        } else {
+            alert("Something happened, try again later");
+        };
+    }
     
     useEffect(() => {
-        fetchUser();
+        if (!token) {
+            history("/login");
+        };
+
+        CheckIfAdmin();
+        fetchUserList();
         fetchStoredUriCount();
     }, []);
 

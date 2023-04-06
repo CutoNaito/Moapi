@@ -2,6 +2,13 @@ import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import env from "react-dotenv";
+
+if (!env.SERVER_URI || !env.AUTH_TOKEN) {
+    throw new Error("Environment variables not set");
+}
+
+const SERVER_URI = env.SERVER_URI;
 
 interface Stored_URIs {
     ID: string;
@@ -23,7 +30,7 @@ export function Userpage() {
 
     useEffect(() => {
         const fetchUser = async () => {
-            const response = await fetch(`http://localhost:4000/users/${userID}`);
+            const response = await fetch(SERVER_URI + `/users/${userID}`);
             const data = await response.json();
 
             if (data.error) {
@@ -34,7 +41,7 @@ export function Userpage() {
         };
 
         const fetchRequestHistory = async () => {
-            const response = await fetch(`http://localhost:4000/stored_uris/user/${userID}`);
+            const response = await fetch(SERVER_URI + `/stored_uris/user/${userID}`);
             const data = await response.json();
 
             console.log(data);

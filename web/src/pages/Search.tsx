@@ -2,6 +2,13 @@ import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import env from "react-dotenv";
+
+if (!env.SERVER_URI || !env.AUTH_TOKEN) {
+    throw new Error("Environment variables not set");
+}
+
+const SERVER_URI = env.SERVER_URI;
 
 interface User {
     ID: string;
@@ -25,7 +32,7 @@ export function Search() {
 
     useEffect(() => {
         const fetchUsers = async () => {
-            const response = await fetch('http://localhost:4000/users');
+            const response = await fetch(SERVER_URI + '/users');
             const data = await response.json();
 
             setUsers(data.result);
