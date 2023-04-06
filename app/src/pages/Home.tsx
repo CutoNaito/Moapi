@@ -122,6 +122,33 @@ export function Home() {
         }
     }
 
+    async function addToFavorite() {
+        const fav_response = await fetch(SERVER_URI + "/favorites", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": env.AUTH_TOKEN!
+            },
+            body: JSON.stringify({
+                uri: url,
+                user_id: user_id,
+                method: method
+            })
+        })
+
+        if (!fav_response.ok) {
+            alert("Error adding to favorites");
+        } else {
+            const data = await fav_response.json();
+
+            if (data.error) {
+                alert(data.error);
+            } else {
+                alert("Added to favorites");
+            }
+        }
+    }
+
     return (
         <div className="home">
             <Header />
@@ -138,6 +165,7 @@ export function Home() {
                         <option value="PUT">PUT</option>
                         <option value="DELETE">DELETE</option>
                     </select>
+                    <button onClick={addToFavorite}><img src="favicon" alt="Favorite"></img></button>
                 </div>
                 <textarea placeholder="Body" rows={15} cols={175} onChange={(e) => setBody(e.target.value)}></textarea>
                 <button type="submit">Send</button>

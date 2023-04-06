@@ -99,3 +99,12 @@ export async function remove(req: Request, res: Response) {
         }
     }
 };
+
+export async function getCount(req: Request, res: Response) {
+    try {
+        const result = await StoredURIs.findCount();
+        res.status(200).json(result);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+}

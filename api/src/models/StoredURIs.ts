@@ -131,4 +131,14 @@ export class StoredURIs {
             logger.log(`${err}`);
         }
     }
+
+    static async findCount() {
+        try {
+            const [result] = await database.query('SELECT COUNT(*) FROM stored_URIs');
+
+            return result;
+        } catch (err) {
+            logger.log(`${err}`);
+        }
+    }
 }

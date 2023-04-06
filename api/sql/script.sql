@@ -8,7 +8,8 @@ CREATE TABLE `users`(
     `password` VARCHAR(255) NOT NULL,
     `token` VARCHAR(255) NOT NULL,
     `verified` BOOLEAN NOT NULL,
-    `verification_code` VARCHAR(255)
+    `verification_code` VARCHAR(255),
+    `isAdmin` TINYINT NOT NULL DEFAULT 0
 );
 
 CREATE TABLE `stored_URIs`(
