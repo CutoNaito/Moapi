@@ -136,5 +136,3 @@ export async function verify(req: Request, res: Response) {
         }
     }
 };
-
-export async function 

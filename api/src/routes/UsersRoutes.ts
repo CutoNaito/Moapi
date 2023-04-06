@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import { getAll, getByID, getByUsername, getByEmail, getByToken, create, update, login, verify } from '../controllers/UsersController';
+import { getAll, getByID, getByUsername, getByEmail, getByToken, create, update, remove, login, verify } from '../controllers/UsersController';
 
 const router = Router();
 
 router.route('/').get(getAll).post(create);
-router.route('/:id').get(getByID).put(update);
+router.route('/:id').get(getByID).put(update).delete(remove);
 router.route('/username/:username').get(getByUsername);
 router.route('/email/:email').get(getByEmail);
 router.route('/login').post(login);

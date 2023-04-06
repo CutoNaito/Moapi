@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import env from "react-dotenv";
+import { UserConfigHUD } from "../../components/admin/UserConfigHUD";
 
 if (!env.SERVER_URI || !env.AUTH_TOKEN) {
     throw new Error("Environment variables not set");
@@ -53,6 +54,9 @@ export function AdminUser() {
     return (
         <div className="admin-user">
             <h1>{username}</h1>
+            <div className="config_hud">
+                <UserConfigHUD userID={userID} />
+            </div>
         </div>
     );
 }
