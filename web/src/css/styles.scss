@@ -1,0 +1,112 @@
+$main_color: #fff;
+$secondary_color: #000;
+$header_color: #9524ff;
+$button_color: #ff9add;
+$font: 'Raleway', sans-serif;
+
+* {
+    font-family: $font;
+}
+
+header {
+    background-color: $header_color;
+    color: $main_color;
+    width: 100%;
+    height: auto;
+    padding: 0px;
+    margin: 0px;
+    text-align: center;
+
+    h1 {
+        font-size: 3em;
+        padding: 0px;
+        margin: 0px;
+    }
+
+    button {
+        background-color: $button_color;
+        color: $header_color;
+        width: 140px;
+        border: 0px;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 10px;
+        font-size: 1.5em;
+        cursor: pointer;
+
+        &:hover {
+            background-color: $header_color;
+            
+            a {
+                color: $main_color;
+            }
+        }
+    }
+}
+
+body {
+    background-color: $main_color;
+    color: $secondary_color;
+    width: 100%;
+    height: 100vh;
+    padding: 0px;
+    margin: 0px;
+
+    .search {
+        form {
+            text-align: center;
+            margin: 10px;
+
+            input {
+                width: 70%;
+                height: 5vh;
+                font-size: larger;
+            }
+
+            button {
+                background-color: $button_color;
+                width: 70%;
+                height: 5vh;
+                margin-top: 10px;
+                border: 0px;
+                border-radius: 5px;
+                padding: 10px;
+                margin: 10px;
+                font-size: 1.5em;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: $header_color;
+                    color: $main_color;
+                }
+            }
+        }
+
+        .search-results {
+            text-align: center;
+
+            .result {
+                background-color: $button_color;
+                display: inline-block;
+                width: 200px;
+                height: auto;
+                margin-top: 10px;
+                border: 0px;
+                border-radius: 5px;
+                padding: 20px;
+                margin: 10px;
+                font-size: 1.5em;
+                text-align: center;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: $header_color;
+
+                    a {
+                        color: $main_color;
+                    }
+                }
+            }
+        }
+    }
+}

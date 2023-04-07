@@ -24,3 +24,6 @@ yarn-debug.log*
 yarn-error.log*
 
 public/env.js
+
+/src/css/styles.css
+/src/css/styles.css.map

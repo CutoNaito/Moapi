@@ -1,25 +1,24 @@
-import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 export function Header() {
     return (
         <header>
             <h1>MOAPI</h1>
-            <Button variant="secondary">
-                <Link to={"/"}>Home</Link>
-            </Button>
+            <button>
+                <Link style={{textDecoration: 'none'}} to={"/"}>Home</Link>
+            </button>
 
-            <Button variant="secondary">
-                <Link to={"/login"}>Login</Link>
-            </Button>
+            <button>
+                <Link style={{textDecoration: 'none'}} to={"/login"}>Login</Link>
+            </button>
 
-            <Button variant="secondary">
-                <Link to={"/register"}>Register</Link>
-            </Button>
+            <button>
+                <Link style={{textDecoration: 'none'}} to={"/register"}>Register</Link>
+            </button>
 
-            <Button variant="secondary">
-                <Link to={"/search"}>Search</Link>
-            </Button>
+            <button>
+                <Link style={{textDecoration: 'none'}} to={"/search"}>Search</Link>
+            </button>
         </header>
     );
 }

@@ -61,18 +61,17 @@ export function Search() {
     return (
         <div className="search">
             <Header />
-            <h1>Search</h1>
             <form onSubmit={searchUsers}>
             <input type="text" value={search} onChange={e => setSearch(e.target.value)} />
             <button type="submit">Search</button>
             </form>
-            <ul>
+            <div className="search-results">
                 {results.map((x) => 
-                    <li>
-                        <Link to={"/userpage/?id=" + x.id}>{x.username}</Link>
-                    </li>
+                    <div className="result">
+                        <Link style={{textDecoration: 'none'}} to={"/userpage/?id=" + x.id}>{x.username}</Link>
+                    </div>
                 )}
-            </ul>
+            </div>
             <Footer />
         </div>
     );
