@@ -36,16 +36,17 @@ export function AdminHome() {
         const response = await fetch(SERVER_URI + "/users/token/" + token);
         const data = await response.json();
 
-        if (data.result[0].isAdmin == 0) {
+        if (data.result.isAdmin == 0) {
             history("/login");
         }
     };
 
     async function fetchStoredUriCount() {
-        const response = await fetch(SERVER_URI + "/stored_uri/count/");
+        const response = await fetch(SERVER_URI + "/stored_uris/count/");
         const data = await response.json();
 
         if (!data.error) {
+            console.log(data);
             setUriCount(data.result[0]);
         } else {
             alert("Something happened, try again later");

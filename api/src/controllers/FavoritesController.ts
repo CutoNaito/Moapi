@@ -56,7 +56,7 @@ export async function getByMethod(req: Request, res: Response) {
 
 export async function create(req: Request, res: Response) {
     const UUID: string = uuid();
-    const Favorite = new Favorites(UUID, req.body.user_id, req.body.uri);
+    const Favorite = new Favorites(UUID, req.body.user_id, req.body.uri, req.body.method);
 
     if (req.headers.authorization !== auth_token) {
         res.status(401).json({message: "Unauthorized"});

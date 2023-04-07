@@ -1,7 +1,7 @@
 import express from 'express';
 import UsersRouter from '../src/routes/UsersRoutes';
 import StoredURIsRouter from '../src/routes/StoredURIsRoutes';
-import FavouritesRouter from '../src/routes/FavoritesRoutes';
+import FavoritesRouter from '../src/routes/FavoritesRoutes';
 import SMTPRouter from '../src/routes/SMTP/SMTPRoutes';
 import 'dotenv/config';
 import cors from 'cors';
@@ -14,7 +14,7 @@ app.use(cors());
 
 app.use('/users', UsersRouter);
 app.use('/stored_uris', StoredURIsRouter);
-app.use('/favourites', FavouritesRouter);
+app.use('/favorites', FavoritesRouter);
 app.use('/smtp', SMTPRouter);
 
 if (Number.isInteger(parseInt(port!)) && parseInt(port!) > 0) {

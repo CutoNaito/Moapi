@@ -75,7 +75,9 @@ export async function create(req: Request, res: Response) {
 };
 
 export async function update(req: Request, res: Response) {
-    const User = new Users(req.params.id, req.body.username, req.body.email, req.body.password);
+    const hashedPassword: string = await bcrypt.hash(req.body.password, 10);
+
+    const User = new Users(req.params.id, req.body.username, req.body.email, hashedPassword);
 
     if (req.headers.authorization !== auth_token) {
         res.status(401).json({message: "Unauthorized"});

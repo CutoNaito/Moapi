@@ -26,7 +26,7 @@ export function AdminUser() {
         const response = await fetch(SERVER_URI + "/users/token/" + token);
         const data = await response.json();
 
-        if (data.result[0].isAdmin == 0) {
+        if (data.result.isAdmin == 0) {
             history("/login");
         };
     };

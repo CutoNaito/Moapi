@@ -7,6 +7,8 @@ import { Verify } from './pages/login/Verify';
 import { Search } from './pages/Search';
 import { Userpage } from './pages/Userpage';
 import { AdminHome } from './pages/admin/AdminHome';
+import { AdminUser } from './pages/admin/AdminUser';
+import { AdminUserUpdate } from './pages/admin/AdminUserUpdate';
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
         <Route path="/search" element={<Search />} />
         <Route path="/userpage" element={<Userpage />} />
         <Route path="/admin" element={<AdminHome />} />
+        <Route path="/admin/user" element={<AdminUser />} />
+        <Route path="/admin/user/update" element={<AdminUserUpdate />} />
       </Routes>
     </Router>
   );

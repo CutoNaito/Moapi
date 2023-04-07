@@ -8,9 +8,13 @@ if (!env.SERVER_URI || !env.AUTH_TOKEN) {
 
 const SERVER_URI = env.SERVER_URI;
 
-export function UserConfigHUD(userID: any) {
+interface UserProps {
+    userID: string | null;
+}
+
+export function UserConfigHUD(props: UserProps) {
     async function DeleteUser() {
-        const response = await fetch(SERVER_URI + `/users/${userID}`, {
+        const response = await fetch(SERVER_URI + `/users/${props.userID}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
@@ -27,7 +31,7 @@ export function UserConfigHUD(userID: any) {
 
     return (
         <div>
-            <button><Link to={`/admin/user/update/${userID}`}>Update User</Link></button>
+            <button><Link to={`/admin/user/update/?id=${props.userID}`}>Update User</Link></button>
             <button onClick={DeleteUser}>Delete User</button>
         </div>
     );

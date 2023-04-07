@@ -123,6 +123,7 @@ export function Home() {
     }
 
     async function addToFavorite() {
+        console.log(method);
         const fav_response = await fetch(SERVER_URI + "/favorites", {
             method: "POST",
             headers: {
@@ -132,7 +133,7 @@ export function Home() {
             body: JSON.stringify({
                 uri: url,
                 user_id: user_id,
-                method: method
+                method: `${method}`
             })
         })
 

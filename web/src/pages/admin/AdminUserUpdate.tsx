@@ -52,7 +52,7 @@ export function AdminUserUpdate() {
         if (data.error) {
             alert("Something went wrong, try again later");
         } else {
-            history(`/admin/user/${userID}`);
+            history(`/admin/user/?id=${userID}`);
         };
     };
 
