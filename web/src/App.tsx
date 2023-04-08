@@ -9,6 +9,8 @@ import { Userpage } from './pages/Userpage';
 import { AdminHome } from './pages/admin/AdminHome';
 import { AdminUser } from './pages/admin/AdminUser';
 import { AdminUserUpdate } from './pages/admin/AdminUserUpdate';
+import { HelpHome } from './pages/help/HelpHome';
+import { HelpCreate } from './pages/help/HelpCreate';
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
         <Route path="/admin" element={<AdminHome />} />
         <Route path="/admin/user" element={<AdminUser />} />
         <Route path="/admin/user/update" element={<AdminUserUpdate />} />
+        <Route path="/help" element={<HelpHome />} />
+        <Route path="/help/create" element={<HelpCreate />} />
       </Routes>
     </Router>
   );
