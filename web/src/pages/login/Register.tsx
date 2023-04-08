@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import env from "react-dotenv";
+import { Header } from "../../components/Header";
+import { Footer } from "../../components/Footer";
 
 if (!env.SERVER_URI || !env.AUTH_TOKEN) {
     throw new Error("Environment variables not set");
@@ -81,17 +83,21 @@ export function Register() {
     }
 
     return (
-        <div className="loginForm">
-            <h1 className="loginh1">Register</h1>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="username">Username</label>
-                <input type="text" id="username" name="username" onChange={(e) => setUsername(e.target.value)}/>
-                <label htmlFor="email">Email</label>
-                <input type="email" id="email" name="email" onChange={(e) => setEmail(e.target.value)}/>
-                <label htmlFor="password">Password</label>
-                <input type="password" id="password" name="password" onChange={(e) => setPassword(e.target.value)}/>
-                <button type="submit">Register</button>
-            </form>
+        <div>
+            <Header />
+            <div className="login">
+                <h1 className="loginh1">Register</h1>
+                <form onSubmit={handleSubmit}>
+                    <label htmlFor="username">Username</label>
+                    <input type="text" id="username" name="username" onChange={(e) => setUsername(e.target.value)}/>
+                    <label htmlFor="email">Email</label>
+                    <input type="email" id="email" name="email" onChange={(e) => setEmail(e.target.value)}/>
+                    <label htmlFor="password">Password</label>
+                    <input type="password" id="password" name="password" onChange={(e) => setPassword(e.target.value)}/>
+                    <button type="submit">Register</button>
+                </form>
+            </div>
+            <Footer />
         </div>
     )
 }

@@ -51,17 +51,18 @@ export function Login() {
     }
 
     return (
-        <div className="loginForm">
+        <div>
             <Header />
-            <h1 className="loginh1">Login</h1>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="username">Username</label>
-                <input type="text" id="username" name="username" onChange={(e) => setUsername(e.target.value)}/>
-                <label htmlFor="password">Password</label>
-                <input type="password" id="password" name="password" onChange={(e) => setPassword(e.target.value)}/>
-                <button type="submit">Login</button>
-                <a href="/register">Register</a>
-            </form>
+            <div className="login">
+                <h1 className="loginh1">Login</h1>
+                <form onSubmit={handleSubmit}>
+                    <label htmlFor="username">Username</label>
+                    <input type="text" id="username" name="username" onChange={(e) => setUsername(e.target.value)}/>
+                    <label htmlFor="password">Password</label>
+                    <input type="password" id="password" name="password" onChange={(e) => setPassword(e.target.value)}/>
+                    <button type="submit">Login</button>
+                </form>
+            </div>
             <Footer />
         </div>
     );
