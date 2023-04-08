@@ -27,3 +27,20 @@ CREATE TABLE `favorites`(
     `URI` VARCHAR(255) NOT NULL,
     `method` ENUM('GET', 'POST', 'PUT', 'DELETE')
 );
+
+CREATE TABLE `posts`(
+	`ID` CHAR(36) PRIMARY KEY NOT NULL,
+	`ID_users` CHAR(36) NOT NULL,
+	CONSTRAINT `ID_users_post_constr` FOREIGN KEY(`ID_users`) REFERENCES `users`(`ID`),
+	`title` VARCHAR(255),
+	`body` VARCHAR(3000) 
+);
+
+CREATE TABLE `comments`(
+	`ID` CHAR(36) PRIMARY KEY NOT NULL,
+	`ID_users` CHAR(36) NOT NULL,
+	`ID_posts` CHAR(36) NOT NULL,
+	CONSTRAINT `ID_users_comment_constr` FOREIGN KEY(`ID_users`) REFERENCES `users`(`ID`),
+	CONSTRAINT `ID_posts_comment_constr` FOREIGN KEY(`ID_posts`) REFERENCES `posts`(`ID`),
+	`body` VARCHAR(3000)
+);
