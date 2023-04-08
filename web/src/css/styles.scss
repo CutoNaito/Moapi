@@ -143,6 +143,67 @@ body {
             }
         }
     }
+
+    .userpage {
+        text-align: center;
+        margin: 10px;
+        display: grid;
+
+        .navbars {
+            text-align: center;
+            display: inline;
+
+            .history-navbar {
+                text-align: left;
+                width: 340px;
+                border: #000 solid 1px;
+                float: left;
+                margin: 10px;
+    
+                ul {
+                    overflow: hidden;
+                    overflow-y: scroll;
+                    height: 40vh;
+                    list-style-type: none;
+                    padding: 0px;
+    
+                    li {
+                        padding: 10px;
+                        border-bottom: #000 solid 1px;
+    
+                        &:hover {
+                            background-color: $button_color;
+                        }
+                    }
+                }
+            }
+    
+            .favorite-navbar {
+                text-align: left;
+                width: 340px;
+                border: #000 solid 1px;
+                float: left;
+                margin: 10px;
+    
+                ul {
+                    overflow: hidden;
+                    overflow-y: scroll;
+                    height: 40vh;
+                    list-style-type: none;
+                    padding: 0px;
+    
+                    li {
+                        padding: 10px;
+                        border-bottom: #000 solid 1px;
+    
+                        &:hover {
+                            background-color: $button_color;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 footer {
