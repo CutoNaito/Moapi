@@ -23,12 +23,14 @@ export function HelpPost() {
         const response = await fetch(SERVER_URI + `/posts/${postID}`);
         const data = await response.json();
 
+        console.log(data);
+
         if (data.error) {
             history("/help");
         } else {
-            setTitle(data.title);
-            setBody(data.body);
-            setPostUserID(data.ID_user);
+            setTitle(data[0].title);
+            setBody(data[0].body);
+            setPostUserID(data[0].ID_user);
         };
     };
 
@@ -39,7 +41,7 @@ export function HelpPost() {
         if (data.error) {
             history("/login");
         } else {
-            setUserID(data[0].ID);
+            setUserID(data.result.ID);
         };
     };
 

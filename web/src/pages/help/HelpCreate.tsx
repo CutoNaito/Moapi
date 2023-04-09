@@ -21,7 +21,7 @@ export function HelpCreate() {
         if (data.error) {
             history("/login");
         } else {
-            setUserID(data[0].ID);
+            setUserID(data.result.ID);
         };
     }
 
@@ -39,19 +39,13 @@ export function HelpCreate() {
                 "Authorization": env.AUTH_TOKEN!
             },
             body: JSON.stringify({
-                ID_user: userID,
+                user_id: userID,
                 title: title,
                 body: body
             })
         })
 
-        const data = await response.json();
-
-        if (data.error) {
-            alert("Something went wrong");
-        } else {
-            history("/help");
-        };
+        history("/help");
     }
 
     return (

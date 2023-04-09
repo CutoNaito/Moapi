@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import env from "react-dotenv";
+import { Header } from '../../components/Header';
+import { Footer } from '../../components/Footer';
 
 if (!env.SERVER_URI || !env.AUTH_TOKEN) {
     throw new Error("Environment variables not set");
@@ -23,10 +25,14 @@ export function HelpHome() {
         const response = await fetch(SERVER_URI + "/posts/");
         const data = await response.json();
 
-        if (!data.error) {
-            setPosts(data.result);
+        if (data.error) {
+            history("/");
+        };
+
+        if (data.length > 0) {
+            setPosts(data);
         } else {
-            console.log("Error");
+            setPosts([{ID: "0", ID_users: "0", title: "No posts found", body: ""}]);
         };
     }
 
@@ -36,6 +42,7 @@ export function HelpHome() {
 
     return (
         <div>
+            <Header />
             <h1>Welcome to Moapi's Help Center</h1>
             <h2>Here you can find help from the community</h2>
 
@@ -44,15 +51,15 @@ export function HelpHome() {
             </div>
 
             <div className="posts">
-                {posts.map((post) => (
+                {posts.map((post) =>
                     <div className="post" key={post.ID}>
                         <h3>{post.title}</h3>
                         <p>{post.body}</p>
-
-                        <button onClick={() => history(`/help/${post.ID}`)}>View Post</button>
+                        <button onClick={() => history(`/help/post/?id=${post.ID}`)}>View Post</button>
                     </div>
-                ))}
+                )}
             </div>
+            <Footer />
         </div>
     );
 };

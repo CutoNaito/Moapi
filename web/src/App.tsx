@@ -11,6 +11,7 @@ import { AdminUser } from './pages/admin/AdminUser';
 import { AdminUserUpdate } from './pages/admin/AdminUserUpdate';
 import { HelpHome } from './pages/help/HelpHome';
 import { HelpCreate } from './pages/help/HelpCreate';
+import { HelpPost } from './pages/help/HelpPost';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/admin/user/update" element={<AdminUserUpdate />} />
         <Route path="/help" element={<HelpHome />} />
         <Route path="/help/create" element={<HelpCreate />} />
+        <Route path="/help/post" element={<HelpPost />} />
       </Routes>
     </Router>
   );
