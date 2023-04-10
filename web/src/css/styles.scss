@@ -204,6 +204,62 @@ body {
             }
         }
     }
+
+    .help-home {
+        h1 {
+            font-size: 3em;
+            padding: 0px;
+            margin: 0px;
+        }
+
+        .create-post {
+            text-align: center;
+
+            button {
+                background-color: $button_color;
+                color: $header_color;
+                width: 420px;
+                border: 0px;
+                border-radius: 5px;
+                padding: 10px;
+                margin: 10px;
+                font-size: 1.5em;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: $header_color;
+                    color: $main_color;
+                }
+            }
+        }
+
+        .posts {
+            text-align: center;
+
+            .post {
+                background-color: $button_color;
+                display: inline-block;
+                width: 80%;
+                height: auto;
+                margin-top: 10px;
+                border: 0px;
+                border-radius: 5px;
+                padding: 20px;
+                margin: 10px;
+                font-size: 1.5em;
+                text-align: left;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: $header_color;
+
+                    a {
+                        color: $main_color;
+                    }
+                }
+            }
+        }
+    }
 }
 
 footer {

@@ -21,6 +21,10 @@ export function Header() {
                 <button>
                     <Link style={{textDecoration: 'none'}} to={"/search"}>Search</Link>
                 </button>
+
+                <button>
+                    <Link style={{textDecoration: 'none'}} to={"/help"}>Help</Link>
+                </button>
             </header>
         );
     } else {
@@ -41,6 +45,10 @@ export function Header() {
 
                 <button>
                     <Link style={{textDecoration: 'none'}} to={"/search"}>Search</Link>
+                </button>
+
+                <button>
+                    <Link style={{textDecoration: 'none'}} to={"/help"}>Help</Link>
                 </button>
             </header>
         );
