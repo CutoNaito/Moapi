@@ -63,7 +63,7 @@ export async function create(req: Request, res: Response) {
     } else {
         try {
             const result = await Post.save();
-            res.status(200).json(result);
+            res.status(200).json({result: result});
         } catch (err) {
             res.status(500).json(err);
         }
@@ -91,7 +91,7 @@ export async function remove(req: Request, res: Response) {
     } else {
         try {
             const result = await Posts.delete(req.params.id);
-            res.status(200).json(result);
+            res.status(200).json({result: result});
         } catch (err) {
             res.status(500).json(err);
         }

@@ -23,14 +23,12 @@ export function HelpPost() {
         const response = await fetch(SERVER_URI + `/posts/${postID}`);
         const data = await response.json();
 
-        console.log(data);
-
         if (data.error) {
             history("/help");
         } else {
             setTitle(data[0].title);
             setBody(data[0].body);
-            setPostUserID(data[0].ID_user);
+            setPostUserID(data[0].ID_users);
         };
     };
 
@@ -61,9 +59,15 @@ export function HelpPost() {
         } else {
             history("/help");
         };
+
+        history("/help");
     }
 
     useEffect(() => {
+        if (postID == "0" || postID == null || postID == undefined || postID == "undefined" || postID == "null" || postID == "") {
+            history("/help");
+        }
+
         fetchPost();
         fetchUser();
     }, []);
@@ -71,10 +75,12 @@ export function HelpPost() {
     return (
         <div>
             <Header />
-            <div className="post">
+            <div className="post-view">
                 {userID === postUserID && <button onClick={deletePost}>Delete post</button>}
-                <h1>{title}</h1>
-                <p>{body}</p>
+                <div className="post-content">
+                    <h1>{title}</h1>
+                    <p>{body}</p>
+                </div>
             </div>
             <Footer />
         </div>

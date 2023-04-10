@@ -77,8 +77,10 @@ export function HelpHome() {
         <div>
             <Header />
             <div className='help-home'>
-                <h1>Welcome to Moapi's Help Center</h1>
-                <h2>Here you can find help from the community</h2>
+                <div className='help-home-header'>
+                    <h1>Welcome to Moapi's Help Center</h1>
+                    <h2>Here you can find help from the community</h2>
+                </div>
 
                 <div className="create-post">
                     <button onClick={() => history("/help/create")}>Create Post</button>
@@ -90,7 +92,6 @@ export function HelpHome() {
                             () => history(`/help/post/?id=${post.ID}`)
                         }>
                             <h3>{post.title}</h3>
-                            <p>{post.body}</p>
                             <p>Posted by: {compareUserID(post.ID_users)}</p>
                         </div>
                     )}

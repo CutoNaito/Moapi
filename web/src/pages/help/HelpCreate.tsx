@@ -26,6 +26,10 @@ export function HelpCreate() {
     }
 
     useEffect(() => {
+        if (!document.cookie.includes("token")) {
+            history("/login");
+        }
+
         fetchUser();
     }, []);
 
@@ -45,7 +49,13 @@ export function HelpCreate() {
             })
         })
 
-        history("/help");
+        const data = await response.json();
+
+        if (data.error) {
+            alert("Something went wrong");
+        } else {
+            history("/help");
+        }
     }
 
     return (

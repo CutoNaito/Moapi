@@ -259,6 +259,48 @@ body {
                 }
             }
         }
+
+        .help-home-header {
+            text-align: center;
+        }
+    }
+
+    .post-view {
+        text-align: right;
+
+        .post-content {
+            text-align: center;
+
+            h1 {
+                font-size: 3em;
+                padding: 0px;
+                margin: 0px;
+            }
+
+            p {
+                font-size: 1.5em;
+                padding: 10px;
+                margin: 20px;
+                border: #000 solid 1px;
+            }
+        }
+
+        button {
+            background-color: $button_color;
+            color: $header_color;
+            width: 200px;
+            border: 0px;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px;
+            font-size: 1.5em;
+            cursor: pointer;
+
+            &:hover {
+                background-color: $header_color;
+                color: $main_color;
+            }
+        }
     }
 }
 
