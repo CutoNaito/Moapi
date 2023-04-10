@@ -302,6 +302,48 @@ body {
             }
         }
     }
+
+    .help-create {
+        text-align: center;
+        display: block;
+
+        h1 {
+            font-size: 3em;
+            padding: 0px;
+            margin: 0px;
+        }
+
+        input {
+            width: 80%;
+            height: 5vh;
+            font-size: larger;
+            margin: 10px;
+        }
+
+        textarea {
+            width: 80%;
+            height: 20vh;
+            font-size: larger;
+            margin: 10px;
+        }
+
+        button {
+            background-color: $button_color;
+            color: $header_color;
+            width: 450px;
+            border: 0px;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px;
+            font-size: 1.5em;
+            cursor: pointer;
+
+            &:hover {
+                background-color: $header_color;
+                color: $main_color;
+            }
+        }
+    }
 }
 
 footer {

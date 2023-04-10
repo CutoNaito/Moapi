@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import env from "react-dotenv";
+import { Header } from "../../components/Header";
+import { Footer } from "../../components/Footer";
 
 if (!env.SERVER_URI || !env.AUTH_TOKEN) {
     throw new Error("Environment variables not set");
@@ -60,6 +62,7 @@ export function HelpCreate() {
 
     return (
         <div>
+            <Header />
             <div className="help-create">
                 <h1>Create a post</h1>
                 <form onSubmit={handleSumbit}>
@@ -77,6 +80,7 @@ export function HelpCreate() {
                     <button type="submit">Submit</button>
                 </form>
             </div>
+            <Footer />
         </div>
     );
 }
