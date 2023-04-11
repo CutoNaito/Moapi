@@ -10,6 +10,13 @@ if (!env.SERVER_URI || !env.AUTH_TOKEN) {
 
 const SERVER_URI = env.SERVER_URI;
 
+interface Comments {
+    ID: string;
+    ID_users: string;
+    ID_posts: string;
+    body: string;
+}
+
 export function HelpPost() {
     const history = useNavigate();
     const [searchParams] = useSearchParams();
@@ -18,6 +25,8 @@ export function HelpPost() {
     const [body, setBody] = useState("");
     const [userID, setUserID] = useState("");
     const [postUserID, setPostUserID] = useState("");
+    const [comments, setComments] = useState<Comments[]>([]);
+    const [commentBody, setCommentBody] = useState("");
 
     async function fetchPost() {
         const response = await fetch(SERVER_URI + `/posts/${postID}`);
@@ -43,6 +52,26 @@ export function HelpPost() {
         };
     };
 
+    async function fetchComment() {
+        const response = await fetch(SERVER_URI + `/comments/${postID}`);
+        const data = await response.json();
+
+        if (data.error) {
+            history("/help");
+        } else {
+            const mappedComments = data.map((comment: Comments) => {
+                return {
+                    ID: comment.ID,
+                    ID_users: comment.ID_users,
+                    ID_posts: comment.ID_posts,
+                    body: comment.body
+                };
+            });
+
+            setComments(mappedComments);
+        };
+    };
+
     async function deletePost() {
         const response = await fetch(SERVER_URI + `/posts/${postID}`, {
             method: "DELETE",
@@ -61,7 +90,7 @@ export function HelpPost() {
         };
 
         history("/help");
-    }
+    };
 
     useEffect(() => {
         if (postID == "0" || postID == null || postID == undefined || postID == "undefined" || postID == "null" || postID == "") {
@@ -70,7 +99,33 @@ export function HelpPost() {
 
         fetchPost();
         fetchUser();
+        fetchComment();
     }, []);
+
+    const commentSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        const response = await fetch(SERVER_URI + "/comments/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": env.AUTH_TOKEN!
+            },
+            body: JSON.stringify({
+                ID_users: userID,
+                ID_posts: postID,
+                body: commentBody
+            })
+        });
+
+        const data = await response.json();
+
+        if (data.error) {
+            alert("Something went wrong");
+        } else {
+            fetchComment();
+        };
+    };
 
     return (
         <div>
@@ -80,6 +135,25 @@ export function HelpPost() {
                 <div className="post-content">
                     <h1>{title}</h1>
                     <p>{body}</p>
+                </div>
+
+                <div className="write-comment">
+                    <form onSubmit={commentSubmit}>
+                        <textarea placeholder="Write a comment" onChange={
+                            (e) => {
+                                setCommentBody(e.target.value);
+                            }
+                        }></textarea>
+                        <button>Submit</button>
+                    </form>
+                </div>
+
+                <div className="comments">
+                    {comments.map((comment) =>
+                        <div className="comment" key={comment.ID}>
+                            <p>{comment.body}</p>
+                        </div>
+                    )}
                 </div>
             </div>
             <Footer />
