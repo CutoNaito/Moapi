@@ -53,13 +53,13 @@ export function HelpPost() {
     };
 
     async function fetchComment() {
-        const response = await fetch(SERVER_URI + `/comments/${postID}`);
+        const response = await fetch(SERVER_URI + `/comments/post/${postID}`);
         const data = await response.json();
 
         if (data.error) {
             history("/help");
         } else {
-            const mappedComments = data.map((comment: Comments) => {
+            const mappedComments = data.result.map((comment: Comments) => {
                 return {
                     ID: comment.ID,
                     ID_users: comment.ID_users,
@@ -93,7 +93,7 @@ export function HelpPost() {
     };
 
     useEffect(() => {
-        if (postID == "0" || postID == null || postID == undefined || postID == "undefined" || postID == "null" || postID == "") {
+        if (postID === "0" || postID === null || postID === undefined || postID === "undefined" || postID === "null" || postID === "") {
             history("/help");
         }
 
@@ -112,8 +112,8 @@ export function HelpPost() {
                 "Authorization": env.AUTH_TOKEN!
             },
             body: JSON.stringify({
-                ID_users: userID,
-                ID_posts: postID,
+                user_id: userID,
+                post_id: postID,
                 body: commentBody
             })
         });
@@ -127,6 +127,24 @@ export function HelpPost() {
         };
     };
 
+    async function deleteComment(id: string) {
+        const response = await fetch(SERVER_URI + `/comments/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": env.AUTH_TOKEN!
+            }
+        });
+
+        const data = await response.json();
+
+        if (data.error) {
+            alert("Something went wrong");
+        } else {
+            fetchComment();
+        };
+    }
+
     return (
         <div>
             <Header />
@@ -137,23 +155,29 @@ export function HelpPost() {
                     <p>{body}</p>
                 </div>
 
-                <div className="write-comment">
-                    <form onSubmit={commentSubmit}>
-                        <textarea placeholder="Write a comment" onChange={
-                            (e) => {
-                                setCommentBody(e.target.value);
-                            }
-                        }></textarea>
-                        <button>Submit</button>
-                    </form>
-                </div>
+                <div className="comment-div">
+                    <div className="write-comment">
+                        <h2>Write a comment</h2>
+                        <form onSubmit={commentSubmit}>
+                            <textarea placeholder="Write a comment" onChange={
+                                (e) => {
+                                    setCommentBody(e.target.value);
+                                }
+                            }></textarea>
+                            <button type="submit">Submit</button>
+                        </form>
+                    </div>
 
-                <div className="comments">
-                    {comments.map((comment) =>
-                        <div className="comment" key={comment.ID}>
-                            <p>{comment.body}</p>
-                        </div>
-                    )}
+                    <div className="comments">
+                        {comments.map((comment) =>
+                            <div className="comment" key={comment.ID}>
+                                <div className="delete-comment-button">
+                                    {userID === comment.ID_users && <button onClick={() => deleteComment(comment.ID)}>Delete comment</button>}
+                                </div>
+                                <p>{comment.body}</p>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
             <Footer />

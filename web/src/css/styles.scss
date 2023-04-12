@@ -344,6 +344,100 @@ body {
             }
         }
     }
+
+    .comment-div {
+        width: 100%;
+        text-align: center;
+        display: grid;
+
+        .write-comment {
+            text-align: center;
+            width: 40%;
+
+            h1 {
+                font-size: 3em;
+                padding: 0px;
+                margin: 0px;
+            }
+
+            input {
+                width: 80%;
+                height: 5vh;
+                font-size: larger;
+                margin: 10px;
+            }
+
+            textarea {
+                width: 80%;
+                height: 20vh;
+                font-size: larger;
+                margin: 10px;
+                resize: none;
+            }
+
+            button {
+                background-color: $button_color;
+                color: $header_color;
+                width: 450px;
+                border: 0px;
+                border-radius: 5px;
+                padding: 10px;
+                margin: 10px;
+                font-size: 1.5em;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: $header_color;
+                    color: $main_color;
+                }
+            }
+        }
+
+        .comments {
+            text-align: center;
+            width: 40%;
+
+            h1 {
+                font-size: 3em;
+                padding: 0px;
+                margin: 0px;
+            }
+
+            .comment {
+                display: inline-block;
+                width: 80%;
+                height: auto;
+                margin-top: 10px;
+                border: 1px solid #000;
+                border-radius: 5px;
+                padding: 20px;
+                margin: 10px;
+                font-size: 1.5em;
+                text-align: left;
+
+                .delete-comment-button {
+                    text-align: right;
+
+                    button {
+                        background-color: $button_color;
+                        color: $header_color;
+                        width: 100px;
+                        border: 0px;
+                        border-radius: 5px;
+                        padding: 10px;
+                        margin: 10px;
+                        font-size: 0.5em;
+                        cursor: pointer;
+
+                        &:hover {
+                            background-color: $header_color;
+                            color: $main_color;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 footer {
@@ -354,6 +448,8 @@ footer {
     padding: 5px;
     margin: 0px;
     text-align: center;
+    bottom: 0px;
+    position: absolute;
 
     h1 {
         font-size: 3em;

@@ -39,7 +39,7 @@ export async function getByID_users(req: Request, res: Response) {
 export async function getByID_posts(req: Request, res: Response) {
     try {
         const result = await Comments.findByID_posts(req.params.post_id);
-        res.status(200).json(result);
+        res.status(200).json({result: result});
     } catch (err) {
         res.status(500).json(err);
     }
@@ -54,7 +54,7 @@ export async function create(req: Request, res: Response) {
     } else {
         try {
             const result = await Comment.save();
-            res.status(200).json(result);
+            res.status(200).json({result: result});
         } catch (err) {
             res.status(500).json(err);
         }
@@ -82,7 +82,7 @@ export async function remove(req: Request, res: Response) {
     } else {
         try {
             const result = await Comments.delete(req.params.id);
-            res.status(200).json(result);
+            res.status(200).json({result: result});
         } catch (err) {
             res.status(500).json(err);
         }
