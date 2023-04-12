@@ -13,6 +13,13 @@ interface UserProps {
 }
 
 export function UserConfigHUD(props: UserProps) {
+    /**
+     * @description UserConfigHUD component
+     * 
+     * @param props UserProps
+     * 
+     * @returns TSX.Element
+     */
     async function DeleteUser() {
         const response = await fetch(SERVER_URI + `/users/${props.userID}`, {
             method: "DELETE",

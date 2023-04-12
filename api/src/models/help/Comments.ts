@@ -10,6 +10,14 @@ const PATH = process.env.LOG_PATH;
 const logger = new Logger(PATH);
 
 export class Comments {
+    /**
+     * @param ID
+     * @param ID_users
+     * @param ID_posts
+     * @param body
+     * 
+     * @description Creates a new Comments object
+     */
     ID?: string;
     ID_users?: string;
     ID_posts?: string;
@@ -23,6 +31,11 @@ export class Comments {
     };
 
     async save() {
+        /**
+         * @description Saves the Comments object to the database
+         * 
+         * @returns {Promise<Comments>}
+         */
         try {
             await database.query('START TRANSACTION').catch((err: any) => {
                 logger.log(`${err}`);
@@ -43,6 +56,11 @@ export class Comments {
     };
 
     async update() {
+        /**
+         * @description Updates the Comments object in the database
+         * 
+         * @returns {Promise<Comments>}
+         */
         try {
             await database.query('START TRANSACTION').catch((err: any) => {
                 logger.log(`${err}`);
@@ -63,6 +81,13 @@ export class Comments {
     };
 
     static async delete(ID: string) {
+        /**
+         * @description Deletes the Comments object from the database
+         * 
+         * @param ID
+         * 
+         * @returns {Promise<Comments>}
+         */
         try {
             await database.query('START TRANSACTION').catch((err: any) => {
                 logger.log(`${err}`);
@@ -83,6 +108,13 @@ export class Comments {
     };
 
     static async findByID(ID: string) {
+        /**
+         * @description Finds the Comments object in the database
+         * 
+         * @param ID
+         * 
+         * @returns {Promise<Comments>}
+         */
         try {
             const [result] = await database.query('SELECT * FROM comments WHERE ID = ?', [ID]);
 
@@ -93,6 +125,13 @@ export class Comments {
     };
 
     static async findByID_posts(ID_posts: string) {
+        /**
+         * @description Finds the Comments object in the database
+         * 
+         * @param ID_posts
+         * 
+         * @returns {Promise<Comments>}
+         */
         try {
             const [result] = await database.query('SELECT * FROM comments WHERE ID_posts = ?', [ID_posts]);
 
@@ -103,6 +142,13 @@ export class Comments {
     };
 
     static async findByID_users(ID_users: string) {
+        /**
+         * @description Finds the Comments object in the database
+         * 
+         * @param ID_users
+         * 
+         * @returns {Promise<Comments>}
+         */
         try {
             const [result] = await database.query('SELECT * FROM comments WHERE ID_users = ?', [ID_users]);
 
@@ -113,6 +159,11 @@ export class Comments {
     };
 
     static async findAll() {
+        /**
+         * @description Finds all Comments objects in the database
+         * 
+         * @returns {Promise<Comments[]>}
+         */
         try {
             const [result] = await database.query('SELECT * FROM comments');
 

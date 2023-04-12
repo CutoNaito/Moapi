@@ -9,6 +9,11 @@ if (!env.SERVER_URI || !env.AUTH_TOKEN) {
 const SERVER_URI = env.SERVER_URI;
 
 export function AdminUserUpdate() {
+    /**
+     * @description AdminUserUpdate component
+     * 
+     * @returns TSX.Element
+     */
     const history = useNavigate();
     const [searchParams] = useSearchParams();
     const userID = searchParams.get("id");
@@ -20,6 +25,9 @@ export function AdminUserUpdate() {
     const [verifiedEdit, setVerifiedEdit] = useState(false);
 
     async function fetchUser() {
+        /**
+         * @description Fetches a user from the database
+         */
         const response = await fetch(SERVER_URI + `/users/${userID}`);
         const data = await response.json();
 
@@ -31,6 +39,9 @@ export function AdminUserUpdate() {
     }
 
     async function updateUser(e: React.FormEvent<HTMLFormElement>) {
+        /**
+         * @description Updates a user in the database
+         */
         e.preventDefault();
 
         const response = await fetch(SERVER_URI + `/users/${userID}`, {

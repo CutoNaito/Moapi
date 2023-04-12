@@ -10,6 +10,16 @@ const PATH = process.env.LOG_PATH;
 const logger = new Logger(PATH);
 
 export class Posts {
+    /**
+     * @param ID
+     * @param ID_users
+     * @param title
+     * @param body
+     * 
+     * @description Creates a new Posts object
+     * 
+     * @returns {Promise<Posts>}
+     */
     ID?: string;
     ID_users?: string;
     title?: string;
@@ -23,6 +33,11 @@ export class Posts {
     };
 
     async save() {
+        /**
+         * @description Saves the Posts object to the database
+         * 
+         * @returns {Promise<Posts>}
+         */
         try {
             await database.query('START TRANSACTION').catch((err: any) => {
                 logger.log(`${err}`);
@@ -43,6 +58,11 @@ export class Posts {
     };
 
     async update() {
+        /**
+         * @description Updates the Posts object in the database
+         * 
+         * @returns {Promise<Posts>}
+         */
         try {
             await database.query('START TRANSACTION').catch((err: any) => {
                 logger.log(`${err}`);
@@ -63,6 +83,13 @@ export class Posts {
     };
 
     static async delete(ID: string) {
+        /**
+         * @description Deletes the Posts object from the database
+         * 
+         * @param ID
+         * 
+         * @returns {Promise<Posts>}
+         */
         try {
             await database.query('START TRANSACTION').catch((err: any) => {
                 logger.log(`${err}`);
@@ -83,6 +110,11 @@ export class Posts {
     };
 
     static async findAll() {
+        /**
+         * @description Finds all Posts objects in the database
+         * 
+         * @returns {Promise<Posts[]>}
+         */
         try {
             const [result] = await database.query('SELECT * FROM posts');
 
@@ -93,6 +125,13 @@ export class Posts {
     };
 
     static async findByID(ID: string) {
+        /**
+         * @description Finds a Posts object in the database by ID
+         * 
+         * @param ID
+         * 
+         * @returns {Promise<Posts>}
+         */
         try {
             const [result] = await database.query('SELECT * FROM posts WHERE ID = ?', [ID]);
 
@@ -103,6 +142,13 @@ export class Posts {
     };
 
     static async findByID_users(ID_users: string) {
+        /**
+         * @description Finds a Posts object in the database by ID_users
+         * 
+         * @param ID_users
+         * 
+         * @returns {Promise<Posts>}
+         */
         try {
             const [result] = await database.query('SELECT * FROM posts WHERE ID_users = ?', [ID_users]);
 
@@ -113,6 +159,13 @@ export class Posts {
     };
 
     static async findByTitle(title: string) {
+        /**
+         * @description Finds a Posts object in the database by title
+         * 
+         * @param title
+         * 
+         * @returns {Promise<Posts>}
+         */
         try {
             const [result] = await database.query('SELECT * FROM posts WHERE title = ?', [title]);
 
@@ -123,6 +176,13 @@ export class Posts {
     };
 
     static async findByBody(body: string) {
+        /**
+         * @description Finds a Posts object in the database by body
+         * 
+         * @param body
+         * 
+         * @returns {Promise<Posts>}
+         */
         try {
             const [result] = await database.query('SELECT * FROM posts WHERE body = ?', [body]);
 

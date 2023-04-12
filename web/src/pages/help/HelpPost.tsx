@@ -18,6 +18,11 @@ interface Comments {
 }
 
 export function HelpPost() {
+    /**
+     * @description HelpPost component
+     * 
+     * @returns TSX.Element
+     */
     const history = useNavigate();
     const [searchParams] = useSearchParams();
     const postID = searchParams.get("id");
@@ -29,6 +34,9 @@ export function HelpPost() {
     const [commentBody, setCommentBody] = useState("");
 
     async function fetchPost() {
+        /**
+         * @description Fetches a post from the database
+         */
         const response = await fetch(SERVER_URI + `/posts/${postID}`);
         const data = await response.json();
 
@@ -42,6 +50,9 @@ export function HelpPost() {
     };
 
     async function fetchUser() {
+        /**
+         * @description Fetches a user from the database
+         */
         const response = await fetch(SERVER_URI + "/users/token/" + document.cookie.split("=")[1]);
         const data = await response.json();
 
@@ -53,6 +64,9 @@ export function HelpPost() {
     };
 
     async function fetchComment() {
+        /**
+         * @description Fetches comments from the database
+         */
         const response = await fetch(SERVER_URI + `/comments/post/${postID}`);
         const data = await response.json();
 
@@ -73,6 +87,9 @@ export function HelpPost() {
     };
 
     async function deletePost() {
+        /**
+         * @description Deletes a post from the database
+         */
         const response = await fetch(SERVER_URI + `/posts/${postID}`, {
             method: "DELETE",
             headers: {
@@ -103,6 +120,9 @@ export function HelpPost() {
     }, []);
 
     const commentSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        /**
+         * @description Submits a comment to the database
+         */
         e.preventDefault();
 
         const response = await fetch(SERVER_URI + "/comments/", {
@@ -128,6 +148,9 @@ export function HelpPost() {
     };
 
     async function deleteComment(id: string) {
+        /**
+         * @description Deletes a comment from the database
+         */
         const response = await fetch(SERVER_URI + `/comments/${id}`, {
             method: "DELETE",
             headers: {

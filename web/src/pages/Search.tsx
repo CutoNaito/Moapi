@@ -26,22 +26,33 @@ type Results = {
 }
 
 export function Search() {
+    /**
+     * @description Search component
+     * 
+     * @returns TSX.Element
+     */
     const [search, setSearch] = useState("");
     const [results, setResults] = useState<Results[]>([]);
     const [users, setUsers] = useState<User[]>([]);
 
+    async function fetchUsers() {
+        /**
+         * @description Fetches all users from the database
+         */
+        const response = await fetch(SERVER_URI + '/users');
+        const data = await response.json();
+
+        setUsers(data.result);
+    }
+
     useEffect(() => {
-        const fetchUsers = async () => {
-            const response = await fetch(SERVER_URI + '/users');
-            const data = await response.json();
-
-            setUsers(data.result);
-        }
-
         fetchUsers();
     }, []);
 
     const searchUsers = async (e: React.FormEvent<HTMLFormElement>) => {
+        /**
+         * @description Searches for users
+         */
         e.preventDefault();
 
         const mappedUsers = users.map((x: User) => {

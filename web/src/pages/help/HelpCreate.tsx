@@ -11,12 +11,20 @@ if (!env.SERVER_URI || !env.AUTH_TOKEN) {
 const SERVER_URI = env.SERVER_URI;
 
 export function HelpCreate() {
+    /**
+     * @description HelpCreate component
+     * 
+     * @returns TSX.Element
+     */
     const history = useNavigate();
     const [userID, setUserID] = useState("");
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
 
     async function fetchUser() {
+        /**
+         * @description Fetches the user from the database
+         */
         const response = await fetch(SERVER_URI + "/users/token/" + document.cookie.split("=")[1]);
         const data = await response.json();
 
@@ -36,6 +44,9 @@ export function HelpCreate() {
     }, []);
 
     const handleSumbit = async (e: React.FormEvent<HTMLFormElement>) => {
+        /**
+         * @description Handles the form submit
+         */
         e.preventDefault();
 
         const response = await fetch(SERVER_URI + "/posts/", {

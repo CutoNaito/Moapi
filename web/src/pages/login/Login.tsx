@@ -11,6 +11,9 @@ if (!env.SERVER_URI || !env.AUTH_TOKEN) {
 const SERVER_URI = env.SERVER_URI;
 
 export function Login() {
+    /**
+     * @description Login component
+     */
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const history = useNavigate();
@@ -22,7 +25,11 @@ export function Login() {
     }, []);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        /**
+         * @description Handles the form submit
+         */
         e.preventDefault();
+
         const response = await fetch(SERVER_URI + "/users/login/", {
             method: "POST",
             headers: {
@@ -33,9 +40,8 @@ export function Login() {
                 password: password
             })
         });
-        console.log(response);
-        const data = await response.json();
 
+        const data = await response.json();
         const token = data.result[0].token;
 
         if (token === undefined) {

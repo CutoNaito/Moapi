@@ -10,6 +10,14 @@ const PATH = process.env.LOG_PATH;
 const logger = new Logger(PATH);
 
 export class Favorites {
+    /**
+     * @param ID
+     * @param ID_users
+     * @param URI
+     * @param method
+     * 
+     * @description Creates a new Favorites object
+     */
     ID?: string;
     ID_users?: string;
     URI?: string;
@@ -23,6 +31,11 @@ export class Favorites {
     }
 
     async save() {
+        /**
+         * @description Saves the Favorites object to the database
+         * 
+         * @returns {Promise<Favorites>}
+         */
         try {
             await database.query('START TRANSACTION').catch((err: any) => {
                 logger.log(`${err}`);
@@ -43,6 +56,11 @@ export class Favorites {
     }
 
     async update() {
+        /**
+         * @description Updates the Favorites object in the database
+         * 
+         * @returns {Promise<Favorites>}
+        */
         try {
             await database.query('START TRANSACTION').catch((err: any) => {
                 logger.log(`${err}`);
@@ -63,6 +81,13 @@ export class Favorites {
     }
 
     static async delete(ID: string) {
+        /**
+         * @description Deletes the Favorites object from the database
+         * 
+         * @param ID
+         * 
+         * @returns {Promise<Favorites>}
+         */
         try {
             await database.query('START TRANSACTION').catch((err: any) => {
                 logger.log(`${err}`);
@@ -83,6 +108,13 @@ export class Favorites {
     }
 
     static async findByID(ID: string) {
+        /**
+         * @description Finds the Favorites object in the database
+         * 
+         * @param ID
+         * 
+         * @returns {Promise<Favorites>}
+         */
         try {
             const [result] = await database.query('SELECT * FROM favorites WHERE ID = ?', [ID]);
 
@@ -93,6 +125,13 @@ export class Favorites {
     }
 
     static async findByID_users(ID_users: string) {
+        /**
+         * @description Finds the Favorites object in the database
+         * 
+         * @param ID_users
+         * 
+         * @returns {Promise<Favorites>}
+         */
         try {
             const [result] = await database.query('SELECT * FROM favorites WHERE ID_users = ?', [ID_users]);
 
@@ -103,6 +142,13 @@ export class Favorites {
     }
 
     static async findByURI(URI: string) {
+        /**
+         * @description Finds the Favorites object in the database
+         * 
+         * @param URI
+         * 
+         * @returns {Promise<Favorites>}
+         */
         try {
             const [result] = await database.query('SELECT * FROM favorites WHERE URI = ?', [URI]);
 
@@ -113,6 +159,13 @@ export class Favorites {
     }
 
     static async findByMethod(method: string) {
+        /**
+         * @description Finds the Favorites object in the database
+         * 
+         * @param method
+         * 
+         * @returns {Promise<Favorites>}
+         */
         try {
             const [result] = await database.query('SELECT * FROM favorites WHERE method = ?', [method]);
 
@@ -123,6 +176,11 @@ export class Favorites {
     }
 
     static async findAll() {
+        /**
+         * @description Finds all the Favorites objects in the database
+         * 
+         * @returns {Promise<Favorites[]>}
+         */
         try {
             const [result] = await database.query('SELECT * FROM favorites');
 

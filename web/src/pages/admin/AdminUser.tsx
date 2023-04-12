@@ -10,6 +10,11 @@ if (!env.SERVER_URI || !env.AUTH_TOKEN) {
 const SERVER_URI = env.SERVER_URI;
 
 export function AdminUser() {
+    /**
+     * @description AdminUser component
+     * 
+     * @returns TSX.Element
+     */
     const history = useNavigate();
     const [searchParams] = useSearchParams();
     const userID = searchParams.get("id");
@@ -23,6 +28,9 @@ export function AdminUser() {
     };
 
     async function CheckIfAdmin() {
+        /**
+         * @description Checks if the user is an admin
+         */
         const response = await fetch(SERVER_URI + "/users/token/" + token);
         const data = await response.json();
 
@@ -32,6 +40,9 @@ export function AdminUser() {
     };
 
     async function fetchUser() {
+        /**
+         * @description Fetches a user from the database
+         */
         const response = await fetch(SERVER_URI + `/users/${userID}`);
         const data = await response.json();
 

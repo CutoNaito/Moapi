@@ -10,6 +10,17 @@ const PATH = process.env.LOG_PATH;
 const logger = new Logger(PATH);
 
 export class Users {
+    /**
+     * @param ID
+     * @param username
+     * @param password
+     * @param email
+     * @param token
+     * @param verified
+     * @param verification_code
+     * 
+     * @description Creates a new Users object
+     */
     ID?: string;
     username?: string;
     password?: string;
@@ -29,6 +40,11 @@ export class Users {
     }
 
     async save() {
+        /**
+         * @description Saves the Users object to the database
+         * 
+         * @returns {Promise<Users>}
+         */
         try {
             await database.query("START TRANSACTION").catch((err: any) => {
                 logger.log(`${err}`);
@@ -49,6 +65,11 @@ export class Users {
     };
 
     async update() {
+        /**
+         * @description Updates the Users object in the database
+         * 
+         * @returns {Promise<Users>}
+         */
         try {
             await database.query("START TRANSACTION").catch((err: any) => {
                 logger.log(`${err}`);
@@ -69,6 +90,11 @@ export class Users {
     };
 
     async delete() {
+        /**
+         * @description Deletes the Users object from the database
+         * 
+         * @returns {Promise<Users>}
+         */
         try {
             await database.query("START TRANSACTION").catch((err: any) => {
                 logger.log(`${err}`);
@@ -89,6 +115,13 @@ export class Users {
     };
 
     static async findByID(ID: string) {
+        /**
+         * @description Finds a Users object in the database by ID
+         * 
+         * @param ID
+         * 
+         * @returns {Promise<Users>}
+         */
         try {
             const [result] = await database.query("SELECT * FROM users WHERE ID = ?", [ID]);
 
@@ -99,6 +132,11 @@ export class Users {
     };
 
     static async findAll() {
+        /**
+         * @description Finds all Users objects in the database
+         * 
+         * @returns {Promise<Users[]>}
+         */
         try {
             const [result] = await database.query("SELECT * FROM users");
 
@@ -109,6 +147,13 @@ export class Users {
     };
 
     static async findByUsername(username: string) {
+        /**
+         * @description Finds a Users object in the database by username
+         * 
+         * @param username
+         * 
+         * @returns {Promise<Users>}
+         */
         try {
             const [result] = await database.query("SELECT * FROM users WHERE username = ?", [username]);
 
@@ -119,6 +164,13 @@ export class Users {
     };
 
     static async findByEmail(email: string) {
+        /**
+         * @description Finds a Users object in the database by email
+         * 
+         * @param email
+         * 
+         * @returns {Promise<Users>}
+         */
         try {
             const [result] = await database.query("SELECT * FROM users WHERE email = ?", [email]);
 
@@ -129,6 +181,13 @@ export class Users {
     };
 
     static async findByToken(token: string) {
+        /**
+         * @description Finds a Users object in the database by token
+         * 
+         * @param token
+         * 
+         * @returns {Promise<Users>}
+         */
         try {
             const [result] = await database.query("SELECT * FROM users WHERE token = ?", [token]);
 
@@ -139,6 +198,13 @@ export class Users {
     };
 
     static async verify(token: string) {
+        /**
+         * @description Verifies a Users object in the database by token
+         * 
+         * @param token
+         * 
+         * @returns {Promise<Users>}
+         */
         try {
             await database.query("START TRANSACTION").catch((err: any) => {
                 logger.log(`${err}`);
@@ -159,6 +225,13 @@ export class Users {
     };
 
     static async removeVerificationCode(token: string) {
+        /**
+         * @description Removes the verification code from a Users object in the database by token
+         * 
+         * @param token
+         * 
+         * @returns {Promise<Users>}
+         */
         try {
             await database.query("START TRANSACTION").catch((err: any) => {
                 logger.log(`${err}`);

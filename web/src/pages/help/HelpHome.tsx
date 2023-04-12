@@ -28,11 +28,19 @@ interface User {
 const SERVER_URI = env.SERVER_URI;
 
 export function HelpHome() {
+    /**
+     * @description HelpHome component
+     * 
+     * @returns TSX.Element
+     */
     const history = useNavigate();
     const [posts, setPosts] = useState<Posts[]>([]);
     const [users, setUsers] = useState<User[]>([]);
 
     async function fetchPosts() {
+        /**
+         * @description Fetches all posts from the database
+         */
         const response = await fetch(SERVER_URI + "/posts/");
         const data = await response.json();
 
@@ -48,6 +56,9 @@ export function HelpHome() {
     }
 
     async function fetchUsers() {
+        /**
+         * @description Fetches all users from the database
+         */
         const response = await fetch(SERVER_URI + "/users/");
         const data = await response.json();
 
@@ -66,6 +77,13 @@ export function HelpHome() {
     }, []);
 
     function compareUserID(postUserID: string) {
+        /**
+         * @description Compares the ID of the user who created the post with the ID of the users in the database
+         * 
+         * @param postUserID ID of the user who created the post
+         * 
+         * @returns string
+         */
         for (let i = 0; i < users.length; i++) {
             if (users[i].ID === postUserID) {
                 return users[i].username;

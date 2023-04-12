@@ -10,6 +10,9 @@ if (!process.env.AUTH) {
 const auth_token = process.env.AUTH;
 
 export async function getAll(req: Request, res: Response) {
+    /**
+     * @description Gets all favorites from the database
+     */
     try {
         const result = await Favorites.findAll();
         res.status(200).json(result);
@@ -19,6 +22,9 @@ export async function getAll(req: Request, res: Response) {
 };
 
 export async function getByID(req: Request, res: Response) {
+    /**
+     * @description Gets a favorite by ID from the database
+     */
     try {
         const result = await Favorites.findByID(req.params.id);
         res.status(200).json(result);
@@ -28,6 +34,9 @@ export async function getByID(req: Request, res: Response) {
 };
 
 export async function getByID_users(req: Request, res: Response) {
+    /**
+     * @description Gets a favorite by ID_users from the database
+     */
     try {
         const result = await Favorites.findByID_users(req.params.user_id);
         res.status(200).json(result);
@@ -37,6 +46,9 @@ export async function getByID_users(req: Request, res: Response) {
 };
 
 export async function getByURI(req: Request, res: Response) {
+    /**
+     * @description Gets a favorite by URI from the database
+     */
     try {
         const result = await Favorites.findByURI(req.params.uri);
         res.status(200).json(result);
@@ -46,6 +58,9 @@ export async function getByURI(req: Request, res: Response) {
 };
 
 export async function getByMethod(req: Request, res: Response) {
+    /**
+     * @description Gets a favorite by method from the database
+     */
     try {
         const result = await Favorites.findByMethod(req.params.method);
         res.status(200).json(result);
@@ -55,6 +70,9 @@ export async function getByMethod(req: Request, res: Response) {
 };
 
 export async function create(req: Request, res: Response) {
+    /**
+     * @description Creates a new favorite in the database
+     */
     const UUID: string = uuid();
     const Favorite = new Favorites(UUID, req.body.user_id, req.body.uri, req.body.method);
 
@@ -71,6 +89,9 @@ export async function create(req: Request, res: Response) {
 };
 
 export async function update(req: Request, res: Response) {
+    /**
+     * @description Updates a favorite in the database
+     */
     const Favorite = new Favorites(req.params.id, req.body.user_id, req.body.uri);
 
     if (req.headers.authorization !== auth_token) {
@@ -86,6 +107,9 @@ export async function update(req: Request, res: Response) {
 };
 
 export async function remove(req: Request, res: Response) {
+    /**
+     * @description Removes a favorite from the database
+     */
     if (req.headers.authorization !== auth_token) {
         res.status(401).json({message: "Unauthorized"});
     } else {

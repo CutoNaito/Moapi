@@ -44,3 +44,5 @@ CREATE TABLE `comments`(
 	CONSTRAINT `ID_posts_comment_constr` FOREIGN KEY(`ID_posts`) REFERENCES `posts`(`ID`),
 	`body` VARCHAR(3000)
 );
+
+SELECT * FROM comments

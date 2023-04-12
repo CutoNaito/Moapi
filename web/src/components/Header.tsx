@@ -1,6 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 
 export function Header() {
+    /**
+     * @description Header component
+     * 
+     * @returns TSX.Element
+     */
     const history = useNavigate();
 
     if (document.cookie.includes("token")) {

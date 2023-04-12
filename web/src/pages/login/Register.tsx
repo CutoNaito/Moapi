@@ -11,6 +11,13 @@ if (!env.SERVER_URI || !env.AUTH_TOKEN) {
 const SERVER_URI = env.SERVER_URI;
 
 function GenerateCode(lenght: number) {
+    /**
+     * @description Generates a random code
+     * 
+     * @param lenght The lenght of the code
+     * 
+     * @returns string
+     */
     let code = "";
     const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
@@ -22,6 +29,9 @@ function GenerateCode(lenght: number) {
 }
 
 export function Register() {
+    /**
+     * @description Register component
+     */
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -34,7 +44,11 @@ export function Register() {
     }, []);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        /**
+         * @description Handles the form submit
+         */
         e.preventDefault();
+        
         const code = GenerateCode(6);
         const token = GenerateCode(32);
 

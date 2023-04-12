@@ -1,4 +1,9 @@
 export function Footer() {
+    /**
+     * @description Footer component
+     * 
+     * @returns TSX.Element
+     */
     return (
         <div className="footer">
             <footer>

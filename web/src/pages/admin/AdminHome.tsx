@@ -24,6 +24,11 @@ type Results = {
 }
 
 export function AdminHome() {
+    /**
+     * @description AdminHome component
+     * 
+     * @returns TSX.Element
+     */
     const [uriCount, setUriCount] = useState(0);
     const [search, setSearch] = useState("");
     const [results, setResults] = useState<Results[]>([]);
@@ -33,6 +38,9 @@ export function AdminHome() {
     const token = document.cookie.split("=")[1];
 
     async function CheckIfAdmin() {
+        /**
+         * @description Checks if the user is an admin
+         */
         const response = await fetch(SERVER_URI + "/users/token/" + token);
         const data = await response.json();
 
@@ -42,6 +50,9 @@ export function AdminHome() {
     };
 
     async function fetchStoredUriCount() {
+        /**
+         * @description Fetches the amount of stored URIs
+         */
         const response = await fetch(SERVER_URI + "/stored_uris/count/");
         const data = await response.json();
 
@@ -54,6 +65,9 @@ export function AdminHome() {
     }
 
     async function fetchUserList() {
+        /**
+         * @description Fetches the list of users
+         */
         const response = await fetch(SERVER_URI + "/users/");
         const data = await response.json();
 
@@ -75,6 +89,9 @@ export function AdminHome() {
     }, []);
 
     const searchUsers = async (e: React.FormEvent<HTMLFormElement>) => {
+        /**
+         * @description Searches for users
+         */
         e.preventDefault();
 
         const mappedUsers = users.map((x: User) => {

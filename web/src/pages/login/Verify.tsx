@@ -11,24 +11,30 @@ if (!env.SERVER_URI || !env.AUTH_TOKEN) {
 const SERVER_URI = env.SERVER_URI;
 
 export function Verify() {
+    /**
+     * @description Verify component
+     */
     const [code, setCode] = useState("");
     const history = useNavigate();
+
+    async function fetchUser() {
+        /**
+         * @description Fetches a user from the database
+         */
+        const token = document.cookie.split("=")[1];
+        const response = await fetch(SERVER_URI + "/users/token/" + token);
+        const data = await response.json();
+
+        console.log(data);
+
+        if (data[0].verified) {
+            history("/");
+        }
+    }
 
     useEffect(() => {
         if (!document.cookie.includes("token")) {
             history("/login");
-        }
-
-        async function fetchUser() {
-            const token = document.cookie.split("=")[1];
-            const response = await fetch(SERVER_URI + "/users/token/" + token);
-            const data = await response.json();
-
-            console.log(data);
-
-            if (data[0].verified) {
-                history("/");
-            }
         }
 
         fetchUser();

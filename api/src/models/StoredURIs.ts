@@ -10,6 +10,14 @@ const PATH = process.env.LOG_PATH;
 const logger = new Logger(PATH);
 
 export class StoredURIs {
+    /**
+     * @param ID
+     * @param ID_users
+     * @param URI
+     * @param method
+     * 
+     * @description Creates a new StoredURIs object
+     */
     ID?: string;
     ID_users?: string;
     URI?: string;
@@ -23,6 +31,11 @@ export class StoredURIs {
     }
 
     async save() {
+        /**
+         * @description Saves the StoredURIs object to the database
+         * 
+         * @returns {Promise<StoredURIs>}
+         */
         try {
             await database.query('START TRANSACTION').catch((err: any) => {
                 logger.log(`${err}`);
@@ -43,6 +56,11 @@ export class StoredURIs {
     };
 
     async update() {
+        /**
+         * @description Updates the StoredURIs object in the database
+         * 
+         * @returns {Promise<StoredURIs>}
+         */
         try {
             await database.query('START TRANSACTION').catch((err: any) => {
                 logger.log(`${err}`);
@@ -63,6 +81,11 @@ export class StoredURIs {
     };
 
     async delete() {
+        /**
+         * @description Deletes the StoredURIs object from the database
+         * 
+         * @returns {Promise<StoredURIs>}
+         */
         try {
             await database.query('START TRANSACTION').catch((err: any) => {
                 logger.log(`${err}`);
@@ -83,6 +106,13 @@ export class StoredURIs {
     };
 
     static async findByID(ID: string) {
+        /**
+         * @description Finds a StoredURIs object in the database by its ID
+         * 
+         * @param ID
+         * 
+         * @returns {Promise<StoredURIs>}
+         */
         try {
             const [result] = await database.query('SELECT * FROM stored_URIs WHERE ID = ?', [ID]);
 
@@ -93,6 +123,13 @@ export class StoredURIs {
     };
 
     static async findByID_users(ID_users: string) {
+        /**
+         * @description Finds a StoredURIs object in the database by its ID_users
+         * 
+         * @param ID_users
+         * 
+         * @returns {Promise<StoredURIs>}
+         */
         try {
             const [result] = await database.query('SELECT * FROM stored_URIs WHERE ID_users = ?', [ID_users]);
 
@@ -103,6 +140,13 @@ export class StoredURIs {
     };
 
     static async findByURI(URI: string) {
+        /**
+         * @description Finds a StoredURIs object in the database by its URI
+         * 
+         * @param URI
+         * 
+         * @returns {Promise<StoredURIs>}
+         */
         try {
             const [result] = await database.query('SELECT * FROM stored_URIs WHERE URI = ?', [URI]);
 
@@ -113,6 +157,11 @@ export class StoredURIs {
     };
 
     static async findAll() {
+        /**
+         * @description Finds all StoredURIs objects in the database
+         * 
+         * @returns {Promise<StoredURIs[]>}
+         */
         try {
             const [result] = await database.query('SELECT * FROM stored_URIs');
 
@@ -123,6 +172,13 @@ export class StoredURIs {
     };
 
     static async findByMethod(method: string) {
+        /**
+         * @description Finds a StoredURIs object in the database by its method
+         * 
+         * @param method
+         * 
+         * @returns {Promise<StoredURIs>}
+         */
         try {
             const [result] = await database.query('SELECT * FROM stored_URIs WHERE method = ?', [method]);
 
@@ -133,6 +189,11 @@ export class StoredURIs {
     }
 
     static async findCount() {
+        /**
+         * @description Finds the number of StoredURIs objects in the database
+         * 
+         * @returns {Promise<StoredURIs>}
+         */
         try {
             const [result] = await database.query('SELECT COUNT(*) FROM stored_URIs');
 

@@ -10,6 +10,9 @@ if (!process.env.AUTH) {
 const auth_token = process.env.AUTH;
 
 export async function getAll(req: Request, res: Response) {
+    /**
+     * @description Gets all posts from the database
+     */
     try {
         const result = await Posts.findAll();
         res.status(200).json(result);
@@ -19,6 +22,9 @@ export async function getAll(req: Request, res: Response) {
 };
 
 export async function getByID(req: Request, res: Response) {
+    /**
+     * @description Gets a post by ID from the database
+     */
     try {
         const result = await Posts.findByID(req.params.id);
         res.status(200).json(result);
@@ -28,6 +34,9 @@ export async function getByID(req: Request, res: Response) {
 };
 
 export async function getByID_users(req: Request, res: Response) {
+    /**
+     * @description Gets a post by ID_users from the database
+     */
     try {
         const result = await Posts.findByID_users(req.params.user_id);
         res.status(200).json(result);
@@ -37,6 +46,9 @@ export async function getByID_users(req: Request, res: Response) {
 };
 
 export async function getByTitle(req: Request, res: Response) {
+    /**
+     * @description Gets a post by title from the database
+     */
     try {
         const result = await Posts.findByTitle(req.params.title);
         res.status(200).json(result);
@@ -46,6 +58,9 @@ export async function getByTitle(req: Request, res: Response) {
 };
 
 export async function getByBody(req: Request, res: Response) {
+    /**
+     * @description Gets a post by body from the database
+     */
     try {
         const result = await Posts.findByBody(req.params.body);
         res.status(200).json(result);
@@ -55,6 +70,9 @@ export async function getByBody(req: Request, res: Response) {
 };
 
 export async function create(req: Request, res: Response) {
+    /**
+     * @description Creates a new post in the database
+     */
     const UUID: string = uuid();
     const Post = new Posts(UUID, req.body.user_id, req.body.title, req.body.body);
 
@@ -71,6 +89,9 @@ export async function create(req: Request, res: Response) {
 };
 
 export async function update(req: Request, res: Response) {
+    /**
+     * @description Updates a post in the database
+     */
     const Post = new Posts(req.params.id, req.body.user_id, req.body.title, req.body.body);
 
     if (req.headers.authorization !== auth_token) {
@@ -86,6 +107,9 @@ export async function update(req: Request, res: Response) {
 };
 
 export async function remove(req: Request, res: Response) {
+    /**
+     * @description Removes a post from the database
+     */
     if (req.headers.authorization !== auth_token) {
         res.status(401).json({message: "Unauthorized"});
     } else {

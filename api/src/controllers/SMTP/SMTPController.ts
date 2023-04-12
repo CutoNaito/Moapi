@@ -10,6 +10,9 @@ const username = process.env.SMTP_USERNAME;
 const password = process.env.SMTP_PASSWORD;
 
 export async function sendVerificationCode(req: Request, res: Response) {
+    /**
+     * @description Sends a verification code to the user's email
+     */
     try { 
         await client.connect();
         await client.greet({hostname: host});

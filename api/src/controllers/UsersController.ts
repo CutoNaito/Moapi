@@ -11,6 +11,9 @@ if (!process.env.AUTH) {
 const auth_token = process.env.AUTH;
 
 export async function getAll(req: Request, res: Response) {
+    /**
+     * @description Gets all users from the database
+     */
     try {
         const result = await Users.findAll();
         res.status(200).json({result: result});
@@ -20,6 +23,9 @@ export async function getAll(req: Request, res: Response) {
 };
 
 export async function getByID(req: Request, res: Response) {
+    /**
+     * @description Gets a user by ID from the database
+     */
     try {
         const [result] = await Users.findByID(req.params.id);
         res.status(200).json(result);
@@ -29,6 +35,9 @@ export async function getByID(req: Request, res: Response) {
 };
 
 export async function getByUsername(req: Request, res: Response) {
+    /**
+     * @description Gets a user by username from the database
+     */
     try {
         const [result] = await Users.findByUsername(req.params.username);
         res.status(200).json(result);
@@ -38,6 +47,9 @@ export async function getByUsername(req: Request, res: Response) {
 };
 
 export async function getByEmail(req: Request, res: Response) {
+    /**
+     * @description Gets a user by email from the database
+     */
     try {
         const [result] = await Users.findByEmail(req.params.email);
         res.status(200).json(result);
@@ -47,6 +59,9 @@ export async function getByEmail(req: Request, res: Response) {
 };
 
 export async function getByToken(req: Request, res: Response) {
+    /**
+     * @description Gets a user by token from the database
+     */
     try {
         const [result] = await Users.findByToken(req.params.token);
         res.status(200).json({result: result});
@@ -56,6 +71,9 @@ export async function getByToken(req: Request, res: Response) {
 };
 
 export async function create(req: Request, res: Response) {
+    /**
+     * @description Creates a new user in the database
+     */
     const UUID: string = uuid();
     const hashedPassword: string = await bcrypt.hash(req.body.password, 10);
     const verification_code_hashed: string = await bcrypt.hash(req.body.verification_code, 10);
@@ -75,6 +93,9 @@ export async function create(req: Request, res: Response) {
 };
 
 export async function update(req: Request, res: Response) {
+    /**
+     * @description Updates a user in the database
+     */
     const hashedPassword: string = await bcrypt.hash(req.body.password, 10);
 
     const User = new Users(req.params.id, req.body.username, req.body.email, hashedPassword);
@@ -92,6 +113,9 @@ export async function update(req: Request, res: Response) {
 };
 
 export async function remove(req: Request, res: Response) {
+    /**
+     * @description Removes a user from the database
+     */
     const User = new Users(req.params.id);
 
     if (req.headers.authorization !== auth_token) {
@@ -107,6 +131,9 @@ export async function remove(req: Request, res: Response) {
 };
 
 export async function login(req: Request, res: Response) {
+    /**
+     * @description Logs a user in
+     */
     try {
         const result = await Users.findByUsername(req.body.username);
         const match = await bcrypt.compare(req.body.password, result[0].password);
@@ -118,6 +145,9 @@ export async function login(req: Request, res: Response) {
 };
 
 export async function verify(req: Request, res: Response) {
+    /**
+     * @description Verifies a user
+     */
     if (req.headers.authorization !== auth_token) {
         res.status(401).json({message: "Unauthorized"});
     } else {

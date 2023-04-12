@@ -17,6 +17,9 @@ interface Stored_URIs {
 }
 
 export function Userpage() {
+    /**
+     * @description Userpage component
+     */
     const history = useNavigate();
     const [searchParams] = useSearchParams();
     const userID = searchParams.get("id");
@@ -30,6 +33,9 @@ export function Userpage() {
     const [favoriteHistory, setFavoriteHistory] = useState<string[]>([]);
 
     const fetchUser = async () => {
+        /**
+         * @description Fetches a user from the database
+         */
         const response = await fetch(SERVER_URI + `/users/${userID}`);
         const data = await response.json();
 
@@ -41,6 +47,9 @@ export function Userpage() {
     };
 
     const fetchRequestHistory = async () => {
+        /**
+         * @description Fetches a user's request history from the database
+         */
         const response = await fetch(SERVER_URI + `/stored_uris/user/${userID}`);
         const data = await response.json();
 
@@ -58,6 +67,9 @@ export function Userpage() {
     };
 
     const fetchFavoriteHistory = async () => {
+        /**
+         * @description Fetches a user's favorite history from the database
+         */
         const response = await fetch(SERVER_URI + `/favorites/user/${userID}`);
         const data = await response.json();
 
