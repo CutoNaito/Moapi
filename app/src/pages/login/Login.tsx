@@ -36,6 +36,7 @@ export function Login() {
         });
 
         const data = await response.json();
+        console.log(data);
         const token = data.result[0].token;
 
         if (data.match && !data.error) {

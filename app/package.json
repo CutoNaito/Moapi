@@ -2,7 +2,8 @@
   "name": "electron-app",
   "version": "0.1.0",
   "private": true,
-  "main": "public/main.js",
+  "main": "public/electron.js",
+  "homepage": "./",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -26,8 +27,8 @@
     "build": "react-dotenv && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "electron-dev": "concurrently \"cross-env BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\"",
-    "electron-pack": "electron-builder --dir"
+    "start-electron": "export ELECTRON_START_URL=http://localhost:3000 && electron .",
+    "package": "electron-builder build --mac --win -c.extraMetadata.main=build/electron.js --publish never"
   },
   "eslintConfig": {
     "extends": [
@@ -51,7 +52,7 @@
     "concurrently": "^7.6.0",
     "cross-env": "^7.0.3",
     "electron": "^23.1.4",
-    "electron-builder": "^23.6.0",
+    "electron-builder": "^22.10.5",
     "wait-on": "^7.0.1"
   },
   "react-dotenv": {

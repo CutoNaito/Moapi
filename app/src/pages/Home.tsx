@@ -21,6 +21,7 @@ export function Home() {
 
     async function fetchUsername() {
         const token = document.cookie.split("=")[1];
+        console.log(token);
 
         if (!token || token == "undefined") {
             history("/login");
@@ -28,16 +29,18 @@ export function Home() {
 
         const response = await fetch(SERVER_URI + "/users/token/" + token);
         const data = await response.json();
+
+        console.log(data);
         
         if (data.error) {
             history("/login");
         }
 
-        console.log(data.result.ID, data.result.verified);
+        console.log(data.result[0].ID, data.result[0].verified);
         
-        setUser_id(data.result.ID);
+        setUser_id(data.result[0].ID);
 
-        if(data.result.verified == 0) {
+        if(data.result[0].verified == 0) {
             history("/verify");
         }
     }
