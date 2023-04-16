@@ -21,7 +21,7 @@ function createWindow() {
         }
     });
 
-    mainWindow.loadURL(startUrl);
+    mainWindow.loadURL('https://moapiapp.cutonaito.eu');
 
     mainWindow.on('closed', () => {
         mainWindow = null;

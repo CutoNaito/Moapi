@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 import env from "react-dotenv";
@@ -57,7 +57,7 @@ export function Login() {
                 <label htmlFor="password">Password</label>
                 <input type="password" id="password" name="password" onChange={(e) => setPassword(e.target.value)}/>
                 <button type="submit">Login</button>
-                <a href="/register">Register</a>
+                <Link to="/register">Register</Link>
             </form>
             <Footer />
         </div>
