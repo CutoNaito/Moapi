@@ -1,6 +1,8 @@
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import env from "react-dotenv";
+import { Header } from "../../components/Header";
+import { Footer } from "../../components/Footer";
 
 if (!env.SERVER_URI || !env.AUTH_TOKEN) {
     throw new Error("Environment variables not set");
@@ -72,39 +74,43 @@ export function AdminUserUpdate() {
     }, []);
 
     return (
-        <div className="admin-user">
-            <h1>Update {username}</h1>
-            <form onSubmit={updateUser}>
-                <label htmlFor="username">Username</label>
-                <input type="text" name="username" id="username" onChange={
-                    (e) => {
-                        setUsernameEdit(e.target.value);
-                    }
-                } />
+        <div>
+            <Header />
+            <div className="admin-user-update">
+                <h1>Update {username}</h1>
+                <form onSubmit={updateUser}>
+                    <label htmlFor="username">Username</label>
+                    <input type="text" name="username" id="username" onChange={
+                        (e) => {
+                            setUsernameEdit(e.target.value);
+                        }
+                    } />
 
-                <label htmlFor="password">Password</label>
-                <input type="password" name="password" id="password" onChange={
-                    (e) => {
-                        setPasswordEdit(e.target.value);
-                    }
-                } />
+                    <label htmlFor="password">Password</label>
+                    <input type="password" name="password" id="password" onChange={
+                        (e) => {
+                            setPasswordEdit(e.target.value);
+                        }
+                    } />
 
-                <label htmlFor="email">Email</label>
-                <input type="email" name="email" id="email" onChange={
-                    (e) => {
-                        setEmailEdit(e.target.value);
-                    }
-                } />
+                    <label htmlFor="email">Email</label>
+                    <input type="email" name="email" id="email" onChange={
+                        (e) => {
+                            setEmailEdit(e.target.value);
+                        }
+                    } />
 
-                <label htmlFor="verified">Verified</label>
-                <input type="checkbox" name="verified" id="verified" onChange={
-                    (e) => {
-                        setVerifiedEdit(e.target.checked);
-                    }
-                } />
+                    <label htmlFor="verified">Verified</label>
+                    <input type="checkbox" name="verified" id="verified" onChange={
+                        (e) => {
+                            setVerifiedEdit(e.target.checked);
+                        }
+                    } />
 
-                <button type="submit">Update</button>
-            </form>
+                    <button type="submit">Update</button>
+                </form>
+            </div>
+            <Footer />
         </div>
     );
 }

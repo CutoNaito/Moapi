@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import env from "react-dotenv";
+import { Footer } from "../../components/Footer";
+import { Header } from "../../components/Header";
 
 if (!env.SERVER_URI || !env.AUTH_TOKEN) {
     throw new Error("Environment variables not set");
@@ -23,13 +25,20 @@ type Results = {
     id: string;
 }
 
+interface StoredURI {
+    ID: string;
+    ID_users: string;
+    URI: string;
+    method: string;
+}
+
 export function AdminHome() {
     /**
      * @description AdminHome component
      * 
      * @returns TSX.Element
      */
-    const [uriCount, setUriCount] = useState(0);
+    const [uri, setUri] = useState<StoredURI[]>([]);
     const [search, setSearch] = useState("");
     const [results, setResults] = useState<Results[]>([]);
     const [users, setUsers] = useState<User[]>([]);
@@ -53,12 +62,22 @@ export function AdminHome() {
         /**
          * @description Fetches the amount of stored URIs
          */
-        const response = await fetch(SERVER_URI + "/stored_uris/count/");
+        const response = await fetch(SERVER_URI + "/stored_uris/");
         const data = await response.json();
 
+        console.log(data);
+
         if (!data.error) {
-            console.log(data);
-            setUriCount(data.result[0]);
+            const mappedUri = data.map((x: StoredURI) => {
+                return {
+                    ID: x.ID,
+                    ID_users: x.ID_users,
+                    URI: x.URI,
+                    method: x.method
+                }
+            });
+
+            setUri(mappedUri);
         } else {
             alert("Something happened, try again later");
         };
@@ -110,24 +129,30 @@ export function AdminHome() {
 
     return (
         <div>
-            <h1>Admin</h1>
-            <div className="uriCount">
-                <h2>Stored URI Count</h2>
-                <p>{uriCount}</p>
-            </div>
-            <div className="links">
-                <form onSubmit={searchUsers}>
-                    <input type="text" value={search} onChange={e => setSearch(e.target.value)} />
-                    <button type="submit">Search</button>
-                </form>
-                <ul>
+            <Header />
+            <div className="admin-home">
+                <h1>Admin</h1>
+                <div className="uriCount">
+                    <h2>Total Stored URI Count</h2>
+                    <p>{uri.length}</p>
+                </div>
+
+                <div className="links">
+                    <form onSubmit={searchUsers}>
+                        <input type="text" value={search} onChange={e => setSearch(e.target.value)} />
+                        <button type="submit">Search</button>
+                    </form>
+
+                    <div className="search-results">
                     {results.map((x) => 
-                        <li>
-                            <Link to={"/admin/user/?id=" + x.id}>{x.username}</Link>
-                        </li>
+                        <div className="result">
+                            <Link style={{textDecoration: 'none'}} to={"/admin/user/?id=" + x.id}>{x.username}</Link>
+                        </div>
                     )}
-                </ul>
+                    </div>
+                </div>
             </div>
+            <Footer />
         </div>
     )
 }

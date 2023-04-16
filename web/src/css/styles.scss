@@ -110,6 +110,76 @@ body {
         }
     }
 
+    .admin-home {
+        h1 {
+            text-align: center;
+            margin: 10px;
+        }
+
+        .uriCount {
+            text-align: center;
+            margin: 10px;
+            border: #000 solid 1px;
+            width: 400px;
+        }
+
+        form {
+            text-align: center;
+            margin: 10px;
+
+            input {
+                width: 70%;
+                height: 5vh;
+                font-size: larger;
+            }
+
+            button {
+                background-color: $button_color;
+                width: 70%;
+                height: 5vh;
+                margin-top: 10px;
+                border: 0px;
+                border-radius: 5px;
+                padding: 10px;
+                margin: 10px;
+                font-size: 1.5em;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: $header_color;
+                    color: $main_color;
+                }
+            }
+        }
+
+        .search-results {
+            text-align: center;
+
+            .result {
+                background-color: $button_color;
+                display: inline-block;
+                width: 200px;
+                height: auto;
+                margin-top: 10px;
+                border: 0px;
+                border-radius: 5px;
+                padding: 20px;
+                margin: 10px;
+                font-size: 1.5em;
+                text-align: center;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: $header_color;
+
+                    a {
+                        color: $main_color;
+                    }
+                }
+            }
+        }
+    }
+
     .login {
         text-align: center;
         margin: 10px;
@@ -436,6 +506,109 @@ body {
                     }
                 }
             }
+        }
+    }
+    
+    .admin-user {
+        text-align: center;
+    }
+
+    .user-config-hud {
+        button {
+            background-color: $button_color;
+            color: $header_color;
+            width: 200px;
+            border: 0px;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px;
+            font-size: 1.5em;
+            cursor: pointer;
+
+            &:hover {
+                background-color: $header_color;
+                color: $main_color;
+
+                a {
+                    color: $main_color;
+                }
+            }
+
+            a {
+                text-decoration: none;
+            }
+        }
+    }
+
+    .admin-user-update {
+        text-align: center;
+
+        form {
+            text-align: center;
+            display: block;
+
+            h1 {
+                font-size: 3em;
+                padding: 0px;
+                margin: 0px;
+            }
+
+            label {
+                display: block;
+            }
+
+            input {
+                width: 80%;
+                height: 5vh;
+                font-size: larger;
+                margin: 10px;
+            }
+
+            textarea {
+                width: 80%;
+                height: 20vh;
+                font-size: larger;
+                margin: 10px;
+            }
+
+            button {
+                background-color: $button_color;
+                color: $header_color;
+                width: 450px;
+                border: 0px;
+                border-radius: 5px;
+                padding: 10px;
+                margin: 10px;
+                font-size: 1.5em;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: $header_color;
+                    color: $main_color;
+                }
+            }
+        }
+    }
+
+    .home {
+        text-align: center;
+        margin: 20px;
+
+        h1 {
+            font-size: 3em;
+            padding: 0px;
+            margin: 0px;
+        }
+
+        p {
+            font-size: 1.5em;
+            padding: 0px;
+            margin: 0px;
+        }
+
+        img {
+            width: 20vw;
+            height: auto;
         }
     }
 }

@@ -37,7 +37,7 @@ export function UserConfigHUD(props: UserProps) {
     };
 
     return (
-        <div>
+        <div className="user-config-hud">
             <button><Link to={`/admin/user/update/?id=${props.userID}`}>Update User</Link></button>
             <button onClick={DeleteUser}>Delete User</button>
         </div>
