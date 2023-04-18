@@ -12,6 +12,8 @@ function createWindow() {
     });
 
     mainWindow = new BrowserWindow({
+        title: 'Moapi',
+        icon: './favicon.ico',
         width: 800, 
         height: 600,
         webPreferences: {
